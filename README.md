@@ -1,61 +1,53 @@
-# Pydantic <3 MAD
+# Meet Your Python PALS
 
-The PMAD (Pydantic <3 MAD) project explores a new, portable data schema for accelerator beamlines:
-It modernizes user input and serialization of the universally beloved definitions of [MAD-X](https://mad.web.cern.ch/mad/webguide/manual.html#Pt2) beamline elements (and more).
+This is a Python implementation for the Particle Accelerator Lattice Standard (PALS).
 
-To define a schema, [Pydantic](https://docs.pydantic.dev) is used to serialize data classes to/from many modern file formats and to automatically validate expected attributes (the schema).
-Various modern file formats (e.g., JSON, TOML, XML, ...) are supported, which makes implementation in any modern programming language easy (e.g., Python, Julia, LUA, C++, Javascript, ...).
+To define the PALS schema, [Pydantic](https://docs.pydantic.dev) is used to map to Python objects, perform automatic validation, and to (de)serialize data classes to/from many modern file formats.
+Various modern file formats (e.g., YAML, JSON, TOML, XML, ...) are supported, which makes implementation of the schema-following creates files in any modern programming language easy (e.g., Python, Julia, LUA, C++, Javascript, ...).
+Here, we do Python.
+
 
 ## Status
 
-This project is a draft, designed for discussion of a potential accelerator beamline standard that simplifies generating, parsing and exchange of accelerator beamline descriptions.
+This project is a work-in-progress and evolves alongside the Particle Accelerator Lattice Standard (PALS) documents.
 
 
-## Motivation
+## Approach
 
-There are many ways to describe beamlines out there, MAD-X, Elegant, SXF, IMPACT, ...
-All of them coupled to a *specific* code, most of them with a [very custom syntax](https://github.com/radiasoft/sirepo/tree/master/sirepo/package_data/static/json), non-unified conventions for units, and mixed with additional descriptions.
-Especially the custom syntax of many formats makes it pretty hard to implement in a feature-complete way to exchange complex beamlines in the community.
+This project implements the PALS schema in a file agnostic way, mirrored in data objects.
+The corresponding serialized files (and optionally, also the corresponding Python objects) can be human-written, human-read, and automatically be validated.
 
-Let's change this.
-let's speak about concepts and implement a schema that is file agnostic and can be human-written, human-read, automatically be validated and is easily implemented in multiple programming languages. 
-Let's use the element descriptions we love and do not spend time anymore on parsing differences between code conventions.
+PALS files follow a schema and readers can error out on issues.
+Not every PALS implementation needs to be as detailed as this reference implementation in Python.
+Nonetheless, you can use this implementation to convert between differnt file formats (see above) or to validate a file before reading it with your favorite YAML/JSON/TOML/XML/... library in your programming language of choice.
+
+So let's go, let us use the element descriptions we love and do not spend time anymore on parsing differences between code conventions.
 
 This will enable us to:
 - exchange lattices between codes
 - use common GUIs for defining lattices
 - use common lattice visualization tools (2D, 3D, etc.)
 
+
 ### FAQ
 
-*But don't we have MAD-X files?*  
-Well, while a powerful input language for its time... have you tried implementing a MAD-X reader for a complex accelerator lattice recently?
-[We have](https://github.com/ECP-WarpX/impactx/issues/104). [Others as well](https://github.com/radiasoft/sirepo/blob/8fcc5e530387c9b31e4d0f6206ff3816dc339425/sirepo/template/madx_converter.py).
-[Here is the reference implementation for the very custom syntax parser in C.](https://github.com/MethodicalAcceleratorDesign/MAD-X/blob/master/src/mad_parse.c)
-Pretty custom, so you have to write a new parser for Python, Fortran, Julia, ... and then you still need to validate the actual content.
-
-*What do you mean with "feature-complete"?*  
-MAD-X' (and other codes') powerful input supports more than defining beamline elements, lines, sequences, etc.
-It supports a custom syntax for limited scripting (e.g., loops, indirections), beam descriptions, code-specific inputs, etc.
-That is good for a single code, but cumbersome for exchanging structural data on a beamline itself.
-That scripting language is often used to describe complex beamlines.
-Implementing a parser for a custom syntax is significant work, which can be fully avoided by using widely-used schemas.
-Modern validators of schemas are readily available to the programmer of today, across a variety of programming languages.
+*Why do you use Pydantic for this implementation?*  
+Implementing directly against a specific file format is possible, but cumbersome.
+By using widely-used schema engine, we can get the "last" part, serialization and deserialization to various file formats (and converting between them, and validating them) for free.
 
 
 ## Roadmap
 
 Preliminary roadmap:
 
-1. Define the schema, using Pydantic  
-1.1. core features: elements, loops?, references?, deferred expressions?, functions attached to element properties?, MAD-X optic-file like workflows & operations, delayed evaluation of variables for segments?
-2. Document well
+1. Define the PALS schema, using Pydantic  
+2. Document the API well.
 3. Reference implementation in Python  
 3.1. attract additional reference implementations in other languages.
 4. Add supporting helpers, which can import existing MAD-X, Elegant, SXF files.  
 4.1. Try to be pretty feature complete in these importers (yeah, hard).
-5. Implement readers for *PMAD* in active community codes for beamline modeling.
-   Reuse the reference implementations.
+5. Implement readers in active community codes for beamline modeling.
+   Reuse the reference implementations: e.g., we will use this project for the [BLAST codes](https://blast.lbl.gov).
 
 
 ## Examples
