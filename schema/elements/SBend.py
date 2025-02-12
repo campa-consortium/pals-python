@@ -1,7 +1,6 @@
 from .base import Thick
 
 from annotated_types import Gt
-from pydantic import Field
 from typing import Annotated, Literal
 
 
