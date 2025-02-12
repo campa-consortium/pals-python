@@ -7,14 +7,14 @@ from schema.Line import Line
 
 def test_BaseElement():
     # Create base element with custom name
-    element_name = "my_base_element"
+    element_name = "base_element"
     element = BaseElement(name=element_name)
     assert element.name == element_name
 
 
 def test_ThickElement():
     # Create thick element with custom name and length
-    element_name = "my_thick_element"
+    element_name = "thick_element"
     element_length = 1.0
     element = ThickElement(
         name=element_name,
@@ -37,8 +37,7 @@ def test_ThickElement():
 # TODO
 def test_Line():
     # Create two base elements
-    elements = []
-    elements.append(BaseElement(name="element_one"))
-    elements.append(BaseElement(name="element_two"))
-    line = Line(elements)
+    element1 = BaseElement(name="element1")
+    element2 = BaseElement(name="element2")
+    line = Line(line=[element1, element2])
     print(line)

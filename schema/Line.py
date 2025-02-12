@@ -11,5 +11,8 @@ class Line(BaseModel):
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    # FIXME TypeError: 'list' is not a valid discriminated union variant; should be a `BaseModel` or `dataclass`
-    line: List[Union[BaseElement, "Line"]] = Field(..., discriminator="element")
+    line: List[Union[BaseElement, "Line"]] = Field(...)
+
+
+# Avoid circular import issues
+Line.model_rebuild()
