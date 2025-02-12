@@ -1,4 +1,4 @@
-from schema import BaseElement
+from schema.BaseElement import BaseElement
 
 
 def test_BaseElement():
