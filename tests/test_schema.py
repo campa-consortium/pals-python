@@ -37,7 +37,7 @@ def test_ThickElement():
 # TODO
 def test_Line():
     # Create two base elements
-    element1 = BaseElement(name="element1")
-    element2 = BaseElement(name="element2")
+    element1 = BaseElement(name="base_element")
+    element2 = ThickElement(name="thick_element", length=1.0)
     line = Line(line=[element1, element2])
-    print(line)
+    assert line.line == [element1, element2]

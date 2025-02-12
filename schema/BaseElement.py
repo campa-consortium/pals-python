@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
+from typing import Literal, Optional
 
 
 class BaseElement(BaseModel):
@@ -11,3 +11,6 @@ class BaseElement(BaseModel):
 
     # Unique element name
     name: Optional[str] = None
+
+    # Discriminator field
+    element: Literal["BaseElement"] = "BaseElement"
