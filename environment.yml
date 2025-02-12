@@ -1,0 +1,12 @@
+name: pals-python
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - pre-commit
+  - pydantic
+  - python
+  - pyyaml
+  - toml
