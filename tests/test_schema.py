@@ -2,6 +2,7 @@ from pydantic import ValidationError
 
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
+from schema.Line import Line
 
 
 def test_BaseElement():
@@ -31,3 +32,13 @@ def test_ThickElement():
         print(e)
         passed = False
     assert not passed
+
+
+# TODO
+def test_Line():
+    # Create two base elements
+    elements = []
+    elements.append(BaseElement(name="element_one"))
+    elements.append(BaseElement(name="element_two"))
+    line = Line(elements)
+    print(line)
