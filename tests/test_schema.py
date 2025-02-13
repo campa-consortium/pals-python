@@ -1,19 +1,21 @@
 from pydantic import ValidationError
 
+import yaml
+
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
 from schema.Line import Line
 
 
 def test_BaseElement():
-    # Create base element with custom name
+    # Create one base element with custom name
     element_name = "base_element"
     element = BaseElement(name=element_name)
     assert element.name == element_name
 
 
 def test_ThickElement():
-    # Create thick element with custom name and length
+    # Create one thick element with custom name and length
     element_name = "thick_element"
     element_length = 1.0
     element = ThickElement(
@@ -49,3 +51,23 @@ def test_Line():
     # Extend first line with second line
     line1.line.extend(line2.line)
     assert line1.line == [element1, element2, element3]
+
+
+def test_yaml():
+    # Create one base element
+    element1 = BaseElement(name="element1")
+    # Create one thick element
+    element2 = ThickElement(name="element2", length=2.0)
+    # Create line with both elements
+    line = Line(line=[element1, element2])
+    # Serialize the Line object to YAML
+    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    # Write the YAML data to a file
+    with open("line.yaml", "w") as file:
+        file.write(yaml_data)
+    # Read the YAML data from the file
+    with open("line.yaml", "r") as file:
+        yaml_data = yaml.safe_load(file)
+    # Parse the YAML data back into a Line object
+    loaded_line = Line(**yaml_data)
+    assert line == loaded_line
