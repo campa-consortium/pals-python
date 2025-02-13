@@ -34,10 +34,18 @@ def test_ThickElement():
     assert not passed
 
 
-# TODO
 def test_Line():
-    # Create two base elements
-    element1 = BaseElement(name="base_element")
-    element2 = ThickElement(name="thick_element", length=1.0)
-    line = Line(line=[element1, element2])
-    assert line.line == [element1, element2]
+    # Create first line with one base element
+    element1 = BaseElement(name="element1")
+    line1 = Line(line=[element1])
+    assert line1.line == [element1]
+    # Extend first line with one thick element
+    element2 = ThickElement(name="element2", length=2.0)
+    line1.line.extend(Line(line=[element2]).line)
+    assert line1.line == [element1, element2]
+    # Create second line with one thick element
+    element3 = ThickElement(name="element3", length=3.0)
+    line2 = Line(line=[element3])
+    # Extend first line with second line
+    line1.line.extend(line2.line)
+    assert line1.line == [element1, element2, element3]
