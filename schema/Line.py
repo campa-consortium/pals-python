@@ -1,24 +1,28 @@
-from pydantic import BaseModel, Field
-from typing import List, Union
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Annotated, List, Literal, Union
 
-from .elements import Drift, SBend, Marker
+from schema.BaseElement import BaseElement
+from schema.ThickElement import ThickElement
 
 
 class Line(BaseModel):
     """A line of elements and/or other lines"""
 
-    line: List[Union[Drift, SBend, Marker, "Line"]] = Field(
-        ..., discriminator="element"
-    )
-    """A list of elements and/or other lines"""
+    # Validate every time a new value is assigned to an attribute,
+    # not only when an instance of Line is created
+    model_config = ConfigDict(validate_assignment=True)
 
-    # Hints for pure Python usage
-    class Config:
-        validate_assignment = True
+    # NOTE Since pydantic 2.9, the discriminator must be applied to the union type, not the list
+    #      (see https://github.com/pydantic/pydantic/issues/10352)
+    line: List[
+        Annotated[
+            Union[BaseElement, ThickElement, "Line"], Field(discriminator="element")
+        ]
+    ]
+
+    # Discriminator field
+    element: Literal["Line"] = "Line"
 
 
-# Hints for pure Python usage
-Line.update_forward_refs()
-
-# TODO / Ideas
-# - Validate the Element.name is, if set, unique in a Line (including nested lines).
+# Avoid circular import issues
+Line.model_rebuild()

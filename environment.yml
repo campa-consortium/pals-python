@@ -7,6 +7,7 @@ channels:
 dependencies:
   - pre-commit
   - pydantic
+  - pytest
   - python
   - pyyaml
   - toml
