@@ -1,5 +1,4 @@
 pydantic
 pytest
-python
 pyyaml
 toml
