@@ -1,5 +1,6 @@
 from pydantic import ValidationError
 
+import json
 import yaml
 
 from schema.BaseElement import BaseElement
@@ -62,6 +63,7 @@ def test_yaml():
     line = Line(line=[element1, element2])
     # Serialize the Line object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    print(f"\n{yaml_data}")
     # Write the YAML data to a file
     with open("line.yaml", "w") as file:
         file.write(yaml_data)
@@ -70,4 +72,25 @@ def test_yaml():
         yaml_data = yaml.safe_load(file)
     # Parse the YAML data back into a Line object
     loaded_line = Line(**yaml_data)
+    assert line == loaded_line
+
+
+def test_json():
+    # Create one base element
+    element1 = BaseElement(name="element1")
+    # Create one thick element
+    element2 = ThickElement(name="element2", length=2.0)
+    # Create line with both elements
+    line = Line(line=[element1, element2])
+    # Serialize the Line object to JSON
+    json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
+    print(f"\n{json_data}")
+    # Write the JSON data to a file
+    with open("line.json", "w") as file:
+        file.write(json_data)
+    # Read the JSON data from the file
+    with open("line.json", "r") as file:
+        json_data = json.loads(file.read())
+    # Parse the JSON data back into a Line object
+    loaded_line = Line(**json_data)
     assert line == loaded_line
