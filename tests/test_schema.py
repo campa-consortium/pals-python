@@ -22,16 +22,16 @@ def test_ThickElement():
     element_length = 1.0
     element = ThickElement(
         name=element_name,
-        length=element_length,
+        Length=element_length,
     )
     assert element.name == element_name
-    assert element.length == element_length
+    assert element.Length == element_length
     # Try to assign negative length and
     # detect validation error without breaking pytest
     element_length = -1.0
     passed = True
     try:
-        element.length = element_length
+        element.Length = element_length
     except ValidationError as e:
         print(e)
         passed = False
@@ -44,11 +44,11 @@ def test_Line():
     line1 = Line(line=[element1])
     assert line1.line == [element1]
     # Extend first line with one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = ThickElement(name="element2", Length=2.0)
     line1.line.extend(Line(line=[element2]).line)
     assert line1.line == [element1, element2]
     # Create second line with one thick element
-    element3 = ThickElement(name="element3", length=3.0)
+    element3 = ThickElement(name="element3", Length=3.0)
     line2 = Line(line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)
@@ -59,7 +59,7 @@ def test_yaml():
     # Create one base element
     element1 = BaseElement(name="element1")
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = ThickElement(name="element2", Length=2.0)
     # Create line with both elements
     line = Line(line=[element1, element2])
     # Serialize the Line object to YAML
@@ -84,7 +84,7 @@ def test_json():
     # Create one base element
     element1 = BaseElement(name="element1")
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = ThickElement(name="element2", Length=2.0)
     # Create line with both elements
     line = Line(line=[element1, element2])
     # Serialize the Line object to JSON
