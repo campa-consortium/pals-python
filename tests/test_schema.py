@@ -6,6 +6,7 @@ import yaml
 
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
+from schema.DriftElement import DriftElement
 from schema.Line import Line
 
 
@@ -38,6 +39,28 @@ def test_ThickElement():
     assert not passed
 
 
+def test_DriftElement():
+    # Create one drift element with custom name and length
+    element_name = "drift_element"
+    element_length = 1.0
+    element = DriftElement(
+        name=element_name,
+        Length=element_length,
+    )
+    assert element.name == element_name
+    assert element.Length == element_length
+    # Try to assign negative length and
+    # detect validation error without breaking pytest
+    element_length = -1.0
+    passed = True
+    try:
+        element.Length = element_length
+    except ValidationError as e:
+        print(e)
+        passed = False
+    assert not passed
+
+
 def test_Line():
     # Create first line with one base element
     element1 = BaseElement(name="element1")
@@ -47,8 +70,8 @@ def test_Line():
     element2 = ThickElement(name="element2", Length=2.0)
     line1.line.extend(Line(line=[element2]).line)
     assert line1.line == [element1, element2]
-    # Create second line with one thick element
-    element3 = ThickElement(name="element3", Length=3.0)
+    # Create second line with one drift element
+    element3 = DriftElement(name="element3", Length=3.0)
     line2 = Line(line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)

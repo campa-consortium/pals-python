@@ -3,6 +3,7 @@ from typing import Annotated, List, Literal, Union
 
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
+from schema.DriftElement import DriftElement
 
 
 class Line(BaseModel):
@@ -16,7 +17,8 @@ class Line(BaseModel):
     #      (see https://github.com/pydantic/pydantic/issues/10352)
     line: List[
         Annotated[
-            Union[BaseElement, ThickElement, "Line"], Field(discriminator="element")
+            Union[BaseElement, ThickElement, DriftElement, "Line"],
+            Field(discriminator="element"),
         ]
     ]
 
