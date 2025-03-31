@@ -7,8 +7,8 @@ from .BaseElement import BaseElement
 class ThickElement(BaseElement):
     """A thick base element with finite segment length"""
 
-    # Segment length in meters (m)
-    Length: Annotated[float, Gt(0)]
-
     # Discriminator field
     element: Literal["ThickElement"] = "ThickElement"
+
+    # Segment length in meters (m)
+    Length: Annotated[float, Gt(0)]
