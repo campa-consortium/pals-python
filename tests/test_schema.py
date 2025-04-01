@@ -4,9 +4,13 @@ from pydantic import ValidationError
 import json
 import yaml
 
+from schema.MagneticMultipoleParameters import MagneticMultipoleParameters
+
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
 from schema.DriftElement import DriftElement
+from schema.QuadrupoleElement import QuadrupoleElement
+
 from schema.Line import Line
 
 
@@ -59,6 +63,24 @@ def test_DriftElement():
         print(e)
         passed = False
     assert not passed
+
+
+# TODO
+def test_QuadrupoleElement():
+    # Create one drift element with custom name and length
+    element_name = "quadrupole_element"
+    element_length = 1.0
+    element_magnetic_multipole = MagneticMultipoleParameters(tilt=0.1)
+    element = QuadrupoleElement(
+        name=element_name,
+        Length=element_length,
+        MagneticMultipoleP=element_magnetic_multipole,
+    )
+    assert element.name == element_name
+    assert element.Length == element_length
+    # Serialize the Line object to YAML
+    yaml_data = yaml.dump(element.model_dump(), default_flow_style=False)
+    print(f"\n{yaml_data}")
 
 
 def test_Line():
