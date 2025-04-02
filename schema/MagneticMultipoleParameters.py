@@ -55,7 +55,7 @@ class MagneticMultipoleParameters(BaseModel):
                 msg = " ".join(
                     [
                         f"Invalid magnetic multipole parameter: '{key}'.",
-                        "Magnetic multipole parameters must be of the form 'tiltN', 'BnN', or 'BsN'.",
+                        "Magnetic multipole parameters must be of the form 'tiltN', 'BnN', or 'BsN', where 'N' is an integer.",
                     ]
                 )
                 raise ValueError(msg)
