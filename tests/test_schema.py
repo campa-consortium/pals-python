@@ -70,7 +70,11 @@ def test_QuadrupoleElement():
     # Create one drift element with custom name and length
     element_name = "quadrupole_element"
     element_length = 1.0
-    element_magnetic_multipole = MagneticMultipoleParameters(tilt1=0.1)
+    element_magnetic_multipole = MagneticMultipoleParameters(
+        Bn1=1.1,
+        Bs1=2.2,
+        tilt1=3.3,
+    )
     element = QuadrupoleElement(
         name=element_name,
         Length=element_length,
