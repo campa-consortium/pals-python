@@ -1,5 +1,5 @@
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Annotated, List, Literal
+from pydantic import BaseModel, ConfigDict
+from typing import List
 
 
 from schema.Item import Item
@@ -8,14 +8,11 @@ from schema.Item import Item
 class Line(BaseModel):
     """A line of elements and/or other lines"""
 
-    # Discriminator field
-    kind: Literal["Line"] = "Line"
-
     # Validate every time a new value is assigned to an attribute,
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    line: List[Annotated[Item, Field(discriminator="kind")]]
+    line: List[Item]
 
 
 # Avoid circular import issues

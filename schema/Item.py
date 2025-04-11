@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Annotated, Literal, Union
+from typing import Annotated, Union
 
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
@@ -9,9 +9,6 @@ from schema.QuadrupoleElement import QuadrupoleElement
 
 class Item(BaseModel):
     """An element of a line or a line itself"""
-
-    # Discriminator field
-    kind: Literal["Item"] = "Item"
 
     # Validate every time a new value is assigned to an attribute,
     # not only when an instance of Line is created
