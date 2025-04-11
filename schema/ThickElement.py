@@ -11,4 +11,4 @@ class ThickElement(BaseElement):
     element: Literal["ThickElement"] = "ThickElement"
 
     # Segment length in meters (m)
-    Length: Annotated[float, Gt(0)]
+    length: Annotated[float, Gt(0)]

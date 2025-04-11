@@ -1,9 +1,8 @@
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Annotated, List, Literal, Union
+from typing import Annotated, List, Literal
 
-from schema.BaseElement import BaseElement
-from schema.ThickElement import ThickElement
-from schema.DriftElement import DriftElement
+
+from schema.Item import Item
 
 
 class Line(BaseModel):
@@ -16,14 +15,7 @@ class Line(BaseModel):
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    # NOTE Since pydantic 2.9, the discriminator must be applied to the union type, not the list
-    #      (see https://github.com/pydantic/pydantic/issues/10352)
-    line: List[
-        Annotated[
-            Union[BaseElement, ThickElement, DriftElement, "Line"],
-            Field(discriminator="element"),
-        ]
-    ]
+    line: List[Annotated[Item, Field(discriminator="element")]]
 
 
 # Avoid circular import issues
