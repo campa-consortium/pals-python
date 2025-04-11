@@ -9,13 +9,13 @@ class Line(BaseModel):
     """A line of elements and/or other lines"""
 
     # Discriminator field
-    element: Literal["Line"] = "Line"
+    kind: Literal["Line"] = "Line"
 
     # Validate every time a new value is assigned to an attribute,
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    line: List[Annotated[Item, Field(discriminator="element")]]
+    line: List[Annotated[Item, Field(discriminator="kind")]]
 
 
 # Avoid circular import issues

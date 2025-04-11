@@ -11,7 +11,7 @@ class Item(BaseModel):
     """An element of a line or a line itself"""
 
     # Discriminator field
-    element: Literal["Item"] = "Item"
+    kind: Literal["Item"] = "Item"
 
     # Validate every time a new value is assigned to an attribute,
     # not only when an instance of Line is created
@@ -26,5 +26,5 @@ class Item(BaseModel):
             DriftElement,
             QuadrupoleElement,
         ],
-        Field(discriminator="element"),
+        Field(discriminator="kind"),
     ]

@@ -6,7 +6,7 @@ class BaseElement(BaseModel):
     """A custom base element defining common properties"""
 
     # Discriminator field
-    element: Literal["BaseElement"] = "BaseElement"
+    kind: Literal["BaseElement"] = "BaseElement"
 
     # Validate every time a new value is assigned to an attribute,
     # not only when an instance of BaseElement is created
