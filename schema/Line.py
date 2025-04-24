@@ -1,8 +1,10 @@
-from pydantic import BaseModel, ConfigDict
-from typing import List
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Annotated, List, Literal, Union
 
-
-from schema.Item import Item
+from schema.BaseElement import BaseElement
+from schema.ThickElement import ThickElement
+from schema.DriftElement import DriftElement
+from schema.QuadrupoleElement import QuadrupoleElement
 
 
 class Line(BaseModel):
@@ -12,7 +14,20 @@ class Line(BaseModel):
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    line: List[Item]
+    kind: Literal["Line"] = "Line"
+
+    line: List[
+        Annotated[
+            Union[
+                BaseElement,
+                ThickElement,
+                DriftElement,
+                QuadrupoleElement,
+                "Line",
+            ],
+            Field(discriminator="kind"),
+        ]
+    ]
 
 
 # Avoid circular import issues

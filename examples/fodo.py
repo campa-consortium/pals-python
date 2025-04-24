@@ -11,7 +11,6 @@ from schema.MagneticMultipoleParameters import MagneticMultipoleParameters
 from schema.DriftElement import DriftElement
 from schema.QuadrupoleElement import QuadrupoleElement
 
-from schema.Item import Item
 from schema.Line import Line
 
 
@@ -45,11 +44,11 @@ def main():
     # Create line with all elements
     line = Line(
         line=[
-            Item(item=drift1),
-            Item(item=quad1),
-            Item(item=drift2),
-            Item(item=quad2),
-            Item(item=drift3),
+            drift1,
+            quad1,
+            drift2,
+            quad2,
+            drift3,
         ]
     )
     # Serialize to YAML

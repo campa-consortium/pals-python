@@ -11,7 +11,6 @@ from schema.ThickElement import ThickElement
 from schema.DriftElement import DriftElement
 from schema.QuadrupoleElement import QuadrupoleElement
 
-from schema.Item import Item
 from schema.Line import Line
 
 
@@ -105,22 +104,18 @@ def test_QuadrupoleElement():
 def test_Line():
     # Create first line with one base element
     element1 = BaseElement(name="element1")
-    item1 = Item(item=element1)
-    line1 = Line(line=[item1])
-    assert item1.item == element1
-    assert line1.line == [item1]
+    line1 = Line(line=[element1])
+    assert line1.line == [element1]
     # Extend first line with one thick element
     element2 = ThickElement(name="element2", length=2.0)
-    item2 = Item(item=element2)
-    line1.line.extend([item2])
-    assert line1.line == [item1, item2]
+    line1.line.extend([element2])
+    assert line1.line == [element1, element2]
     # Create second line with one drift element
     element3 = DriftElement(name="element3", length=3.0)
-    line2 = Line(line=[Item(item=element3)])
+    line2 = Line(line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)
-    assert line1.line[:2] == [item1, item2]
-    assert line1.line[2].item == element3
+    assert line1.line == [element1, element2, element3]
 
 
 def test_yaml():
@@ -129,7 +124,7 @@ def test_yaml():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = Line(line=[Item(item=element1), Item(item=element2)])
+    line = Line(line=[element1, element2])
     # Serialize the Line object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -154,7 +149,7 @@ def test_json():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = Line(line=[Item(item=element1), Item(item=element2)])
+    line = Line(line=[element1, element2])
     # Serialize the Line object to JSON
     json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
     print(f"\n{json_data}")
