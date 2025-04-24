@@ -45,3 +45,29 @@ Preliminary roadmap:
 4. Add supporting helpers, which can import existing MAD-X, Elegant, SXF files.  
 4.1. Try to be as feature complete as possible in these importers.
 5. Reuse the reference implementations and implement readers in community codes for beamline modeling (e.g., the [BLAST codes](https://blast.lbl.gov)).
+
+
+## How to run the tests and examples locally
+
+In order to run the tests and examples locally, please follow these steps:
+
+1. Create a conda environment from the `environment.yml` file:
+    ```bash
+    conda env create -f environment.yml
+    ```
+2. Activate the conda environment:
+    ```bash
+    conda activate pals-python
+    ```
+   Please double check the environment name in the `environment.yml` file.
+3. Run the tests locally:
+    ```bash
+    pytest tests -v
+    ```
+   The command line option `-v` increases the verbosity of the output.
+   You can also use the command line option `-s` to display any test output directly in the console (useful for debugging).
+   Please refer to [pytest's documentation](https://docs.pytest.org/en/stable/) for further details on the available command line options and/or run `pytest --help`.
+4. Run the examples locally (e.g., `fodo.py`):
+    ```bash
+    python examples/fodo.py
+    ```
