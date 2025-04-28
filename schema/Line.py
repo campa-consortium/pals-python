@@ -1,24 +1,34 @@
-from pydantic import BaseModel, Field
-from typing import List, Union
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Annotated, List, Literal, Union
 
-from .elements import Drift, SBend, Marker
+from schema.BaseElement import BaseElement
+from schema.ThickElement import ThickElement
+from schema.DriftElement import DriftElement
+from schema.QuadrupoleElement import QuadrupoleElement
 
 
 class Line(BaseModel):
     """A line of elements and/or other lines"""
 
-    line: List[Union[Drift, SBend, Marker, "Line"]] = Field(
-        ..., discriminator="element"
-    )
-    """A list of elements and/or other lines"""
+    # Validate every time a new value is assigned to an attribute,
+    # not only when an instance of Line is created
+    model_config = ConfigDict(validate_assignment=True)
 
-    # Hints for pure Python usage
-    class Config:
-        validate_assignment = True
+    kind: Literal["Line"] = "Line"
+
+    line: List[
+        Annotated[
+            Union[
+                BaseElement,
+                ThickElement,
+                DriftElement,
+                QuadrupoleElement,
+                "Line",
+            ],
+            Field(discriminator="kind"),
+        ]
+    ]
 
 
-# Hints for pure Python usage
-Line.update_forward_refs()
-
-# TODO / Ideas
-# - Validate the Element.name is, if set, unique in a Line (including nested lines).
+# Avoid circular import issues
+Line.model_rebuild()
