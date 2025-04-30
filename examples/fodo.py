@@ -22,7 +22,7 @@ def main():
     quad1 = QuadrupoleElement(
         name="quad1",
         length=1.0,
-        MagneticMultipoleP=MagneticMultipoleParameters(
+        magnetic_multipole_parameters=MagneticMultipoleParameters(
             Bn1=1.0,
         ),
     )
@@ -33,7 +33,7 @@ def main():
     quad2 = QuadrupoleElement(
         name="quad2",
         length=1.0,
-        MagneticMultipoleP=MagneticMultipoleParameters(
+        magnetic_multipole_parameters=MagneticMultipoleParameters(
             Bn1=-1.0,
         ),
     )

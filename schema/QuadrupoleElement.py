@@ -8,7 +8,7 @@ class QuadrupoleElement(ThickElement):
     """A quadrupole element"""
 
     # Discriminator field
-    kind: Literal["Quadrupole"] = "Quadrupole"
+    Type: Literal["Quadrupole"] = "Quadrupole"
 
     # Magnetic multipole parameters
-    MagneticMultipoleP: MagneticMultipoleParameters
+    magnetic_multipole_parameters: MagneticMultipoleParameters
