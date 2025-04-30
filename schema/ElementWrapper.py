@@ -32,6 +32,8 @@ class ElementWrapper(BaseModel):
         element_data = data[kind]
         element_data["kind"] = kind
         element_class = {
+            "BaseElement": BaseElement,
+            "ThickElement": ThickElement,
             "Drift": DriftElement,
             "Quadrupole": QuadrupoleElement,
         }[kind]
