@@ -12,6 +12,7 @@ from schema.DriftElement import DriftElement
 from schema.QuadrupoleElement import QuadrupoleElement
 
 from schema.Line import Line
+from schema.ElementWrapper import ElementWrapper
 
 
 def main():
@@ -44,15 +45,15 @@ def main():
     # Create line with all elements
     line = Line(
         line=[
-            drift1,
-            quad1,
-            drift2,
-            quad2,
-            drift3,
+            ElementWrapper(element=drift1),
+            ElementWrapper(element=quad1),
+            ElementWrapper(element=drift2),
+            ElementWrapper(element=quad2),
+            ElementWrapper(element=drift3),
         ]
     )
     # Serialize to YAML
-    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    yaml_data = yaml.dump(line.to_dict(), default_flow_style=False)
     print("Dumping YAML data...")
     print(f"{yaml_data}")
     # Write YAML data to file
@@ -63,11 +64,11 @@ def main():
     with open(yaml_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse YAML data
-    loaded_line = Line(**yaml_data)
+    loaded_line = Line.from_dict(yaml_data)
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
-    json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
+    json_data = json.dumps(line.to_dict(), sort_keys=True, indent=2)
     print("Dumping JSON data...")
     print(f"{json_data}")
     # Write JSON data to file
@@ -78,7 +79,7 @@ def main():
     with open(json_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse JSON data
-    loaded_line = Line(**json_data)
+    loaded_line = Line.from_dict(json_data)
     # Validate loaded data
     assert line == loaded_line
 
