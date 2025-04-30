@@ -13,6 +13,8 @@ from schema.QuadrupoleElement import QuadrupoleElement
 
 from schema.Line import Line
 
+from utils import io
+
 
 def main():
     drift1 = DriftElement(
@@ -52,7 +54,9 @@ def main():
         ]
     )
     # Serialize to YAML
-    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    yaml_data = yaml.dump(
+        io.custom_encoder(line.model_dump()), default_flow_style=False
+    )
     print("Dumping YAML data...")
     print(f"{yaml_data}")
     # Write YAML data to file
@@ -63,11 +67,13 @@ def main():
     with open(yaml_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse YAML data
-    loaded_line = Line(**yaml_data)
+    loaded_line = Line(**io.custom_decoder(yaml_data))
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
-    json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
+    json_data = json.dumps(
+        io.custom_encoder(line.model_dump()), sort_keys=True, indent=2
+    )
     print("Dumping JSON data...")
     print(f"{json_data}")
     # Write JSON data to file
@@ -78,7 +84,7 @@ def main():
     with open(json_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse JSON data
-    loaded_line = Line(**json_data)
+    loaded_line = Line(**io.custom_decoder(json_data))
     # Validate loaded data
     assert line == loaded_line
 
