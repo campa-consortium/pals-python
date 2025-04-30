@@ -14,7 +14,7 @@ class Line(BaseModel):
     # not only when an instance of Line is created
     model_config = ConfigDict(validate_assignment=True)
 
-    kind: Literal["Line"] = "Line"
+    Type: Literal["Line"] = "Line"
 
     line: List[
         Annotated[
@@ -25,7 +25,7 @@ class Line(BaseModel):
                 QuadrupoleElement,
                 "Line",
             ],
-            Field(discriminator="kind"),
+            Field(discriminator="Type"),
         ]
     ]
 

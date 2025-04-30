@@ -75,7 +75,7 @@ def test_QuadrupoleElement():
     element_magnetic_multipole_Bs2 = 2.2
     element_magnetic_multipole_tilt1 = 3.1
     element_magnetic_multipole_tilt2 = 3.2
-    element_magnetic_multipole = MagneticMultipoleParameters(
+    element_magnetic_multipole_parameters = MagneticMultipoleParameters(
         Bn1=element_magnetic_multipole_Bn1,
         Bs1=element_magnetic_multipole_Bs1,
         tilt1=element_magnetic_multipole_tilt1,
@@ -86,16 +86,20 @@ def test_QuadrupoleElement():
     element = QuadrupoleElement(
         name=element_name,
         length=element_length,
-        MagneticMultipoleP=element_magnetic_multipole,
+        magnetic_multipole_parameters=element_magnetic_multipole_parameters,
     )
     assert element.name == element_name
     assert element.length == element_length
-    assert element.MagneticMultipoleP.Bn1 == element_magnetic_multipole_Bn1
-    assert element.MagneticMultipoleP.Bs1 == element_magnetic_multipole_Bs1
-    assert element.MagneticMultipoleP.tilt1 == element_magnetic_multipole_tilt1
-    assert element.MagneticMultipoleP.Bn2 == element_magnetic_multipole_Bn2
-    assert element.MagneticMultipoleP.Bs2 == element_magnetic_multipole_Bs2
-    assert element.MagneticMultipoleP.tilt2 == element_magnetic_multipole_tilt2
+    assert element.magnetic_multipole_parameters.Bn1 == element_magnetic_multipole_Bn1
+    assert element.magnetic_multipole_parameters.Bs1 == element_magnetic_multipole_Bs1
+    assert (
+        element.magnetic_multipole_parameters.tilt1 == element_magnetic_multipole_tilt1
+    )
+    assert element.magnetic_multipole_parameters.Bn2 == element_magnetic_multipole_Bn2
+    assert element.magnetic_multipole_parameters.Bs2 == element_magnetic_multipole_Bs2
+    assert (
+        element.magnetic_multipole_parameters.tilt2 == element_magnetic_multipole_tilt2
+    )
     # Serialize the Line object to YAML
     yaml_data = yaml.dump(element.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")

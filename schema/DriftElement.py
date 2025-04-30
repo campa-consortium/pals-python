@@ -7,4 +7,4 @@ class DriftElement(ThickElement):
     """A field free region"""
 
     # Discriminator field
-    kind: Literal["Drift"] = "Drift"
+    Type: Literal["Drift"] = "Drift"
