@@ -1,10 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Annotated, List, Literal, Union
+from pydantic import BaseModel, ConfigDict
+from typing import List, Literal
 
-from schema.BaseElement import BaseElement
-from schema.ThickElement import ThickElement
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
+from schema.ElementWrapper import ElementWrapper
 
 
 class Line(BaseModel):
@@ -16,18 +13,15 @@ class Line(BaseModel):
 
     kind: Literal["Line"] = "Line"
 
-    line: List[
-        Annotated[
-            Union[
-                BaseElement,
-                ThickElement,
-                DriftElement,
-                QuadrupoleElement,
-                "Line",
-            ],
-            Field(discriminator="kind"),
-        ]
-    ]
+    line: List[ElementWrapper]
+
+    def to_dict(self):
+        return {"kind": self.kind, "line": [element.to_dict() for element in self.line]}
+
+    @classmethod
+    def from_dict(cls, data):
+        line_elements = [ElementWrapper.from_dict(element) for element in data["line"]]
+        return cls(line=line_elements)
 
 
 # Avoid circular import issues
