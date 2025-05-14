@@ -16,7 +16,8 @@ class Line(BaseModel):
 
     kind: Literal["Line"] = "Line"
 
-    line: OrderedDict[str,
+    line: OrderedDict[
+        str,
         Annotated[
             Union[
                 BaseElement,
@@ -26,7 +27,7 @@ class Line(BaseModel):
                 "Line",
             ],
             Field(discriminator="kind"),
-        ]
+        ],
     ]
 
 
