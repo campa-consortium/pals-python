@@ -16,43 +16,40 @@ from schema.Line import Line
 
 def main():
     drift1 = DriftElement(
-        name="drift1",
         length=0.25,
     )
     quad1 = QuadrupoleElement(
-        name="quad1",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=1.0,
         ),
     )
     drift2 = DriftElement(
-        name="drift2",
         length=0.5,
     )
     quad2 = QuadrupoleElement(
-        name="quad2",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=-1.0,
         ),
     )
     drift3 = DriftElement(
-        name="drift3",
         length=0.5,
     )
     # Create line with all elements
     line = Line(
-        line=[
-            drift1,
-            quad1,
-            drift2,
-            quad2,
-            drift3,
-        ]
+        line={
+            'drift1': drift1,
+            'quad1': quad1,
+            'drift2': drift2,
+            'quad2': quad2,
+            'drift3': drift3,
+        }
     )
+
     # Serialize to YAML
-    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    yaml_data = yaml.dump(
+        line.model_dump(), default_flow_style=False, sort_keys=False)
     print("Dumping YAML data...")
     print(f"{yaml_data}")
     # Write YAML data to file
@@ -66,8 +63,10 @@ def main():
     loaded_line = Line(**yaml_data)
     # Validate loaded data
     assert line == loaded_line
+
+    
     # Serialize to JSON
-    json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
+    json_data = json.dumps(line.model_dump(), indent=2)
     print("Dumping JSON data...")
     print(f"{json_data}")
     # Write JSON data to file
