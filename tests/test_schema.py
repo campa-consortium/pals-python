@@ -15,21 +15,16 @@ from schema.Line import Line
 
 
 def test_BaseElement():
-    # Create one base element with custom name
-    element_name = "base_element"
-    element = BaseElement(name=element_name)
-    assert element.name == element_name
+    # nothing to test here
+    pass
 
 
 def test_ThickElement():
     # Create one thick element with custom name and length
-    element_name = "thick_element"
     element_length = 1.0
     element = ThickElement(
-        name=element_name,
         length=element_length,
     )
-    assert element.name == element_name
     assert element.length == element_length
     # Try to assign negative length and
     # detect validation error without breaking pytest
@@ -45,13 +40,10 @@ def test_ThickElement():
 
 def test_DriftElement():
     # Create one drift element with custom name and length
-    element_name = "drift_element"
     element_length = 1.0
     element = DriftElement(
-        name=element_name,
         length=element_length,
     )
-    assert element.name == element_name
     assert element.length == element_length
     # Try to assign negative length and
     # detect validation error without breaking pytest
@@ -67,7 +59,6 @@ def test_DriftElement():
 
 def test_QuadrupoleElement():
     # Create one drift element with custom name and length
-    element_name = "quadrupole_element"
     element_length = 1.0
     element_magnetic_multipole_Bn1 = 1.1
     element_magnetic_multipole_Bn2 = 1.2
@@ -84,11 +75,9 @@ def test_QuadrupoleElement():
         tilt2=element_magnetic_multipole_tilt2,
     )
     element = QuadrupoleElement(
-        name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
     )
-    assert element.name == element_name
     assert element.length == element_length
     assert element.MagneticMultipoleP.Bn1 == element_magnetic_multipole_Bn1
     assert element.MagneticMultipoleP.Bs1 == element_magnetic_multipole_Bs1
@@ -103,28 +92,28 @@ def test_QuadrupoleElement():
 
 def test_Line():
     # Create first line with one base element
-    element1 = BaseElement(name="element1")
-    line1 = Line(line=[element1])
-    assert line1.line == [element1]
+    element1 = BaseElement()
+    line1 = Line(line={"element1":element1})
+    assert line1.line == {"element1":element1}
     # Extend first line with one thick element
-    element2 = ThickElement(name="element2", length=2.0)
-    line1.line.extend([element2])
-    assert line1.line == [element1, element2]
+    element2 = ThickElement(length=2.0)
+    line1.line.update({"element2":element2})
+    assert line1.line == {"element1":element1, "element2":element2}
     # Create second line with one drift element
-    element3 = DriftElement(name="element3", length=3.0)
-    line2 = Line(line=[element3])
+    element3 = DriftElement(length=3.0)
+    line2 = Line(line={"element3":element3})
     # Extend first line with second line
-    line1.line.extend(line2.line)
-    assert line1.line == [element1, element2, element3]
+    line1.line.update(line2.line)
+    assert line1.line == {"element1":element1, "element2":element2,"element3":element3}
 
 
 def test_yaml():
     # Create one base element
-    element1 = BaseElement(name="element1")
+    element1 = BaseElement()
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = ThickElement(length=2.0)
     # Create line with both elements
-    line = Line(line=[element1, element2])
+    line = Line(line={"element1":element1, "element2":element2})
     # Serialize the Line object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -145,11 +134,11 @@ def test_yaml():
 
 def test_json():
     # Create one base element
-    element1 = BaseElement(name="element1")
+    element1 = BaseElement()
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = ThickElement(length=2.0)
     # Create line with both elements
-    line = Line(line=[element1, element2])
+    line = Line(line={"element1":element1, "element2":element2})
     # Serialize the Line object to JSON
     json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
     print(f"\n{json_data}")
