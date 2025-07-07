@@ -43,16 +43,16 @@ def main():
     )
     # Create line with all elements
     line = Line(
-        line=[
-            drift1,
-            quad1,
-            drift2,
-            quad2,
-            drift3,
-        ]
+        line={
+            drift1.name: drift1,
+            quad1.name: quad1,
+            drift2.name: drift2,
+            quad2.name: quad2,
+            drift3.name: drift3,
+        }
     )
     # Serialize to YAML
-    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
+    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False, sort_keys=False)
     print("Dumping YAML data...")
     print(f"{yaml_data}")
     # Write YAML data to file
@@ -67,7 +67,7 @@ def main():
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
-    json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
+    json_data = json.dumps(line.model_dump(), indent=2, sort_keys=False)
     print("Dumping JSON data...")
     print(f"{json_data}")
     # Write JSON data to file
