@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Annotated, Literal, OrderedDict, Union
+from typing import Annotated, Dict, List, Literal, Union
 
 from schema.BaseElement import BaseElement
 from schema.ThickElement import ThickElement
@@ -16,18 +16,20 @@ class Line(BaseModel):
 
     kind: Literal["Line"] = "Line"
 
-    line: OrderedDict[
-        str,
-        Annotated[
-            Union[
-                BaseElement,
-                ThickElement,
-                DriftElement,
-                QuadrupoleElement,
-                "Line",
+    line: List[
+        Dict[
+            str,
+            Annotated[
+                Union[
+                    BaseElement,
+                    ThickElement,
+                    DriftElement,
+                    QuadrupoleElement,
+                    "Line",
+                ],
+                Field(discriminator="kind"),
             ],
-            Field(discriminator="kind"),
-        ],
+        ]
     ]
 
 

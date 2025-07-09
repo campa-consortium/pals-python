@@ -43,13 +43,13 @@ def main():
     )
     # Create line with all elements
     line = Line(
-        line={
-            drift1.name: drift1,
-            quad1.name: quad1,
-            drift2.name: drift2,
-            quad2.name: quad2,
-            drift3.name: drift3,
-        }
+        line=[
+            {drift1.name: drift1},
+            {quad1.name: quad1},
+            {drift2.name: drift2},
+            {quad2.name: quad2},
+            {drift3.name: drift3},
+        ]
     )
     # Serialize to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False, sort_keys=False)
