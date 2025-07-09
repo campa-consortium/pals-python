@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Literal, Optional
+from typing import Literal
 
 
 class BaseElement(BaseModel):
@@ -12,5 +12,5 @@ class BaseElement(BaseModel):
     # not only when an instance of BaseElement is created
     model_config = ConfigDict(validate_assignment=True)
 
-    # Unique element name
-    name: Optional[str] = None
+    # element name
+    name: str
