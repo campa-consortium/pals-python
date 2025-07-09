@@ -52,7 +52,7 @@ def main():
         ]
     )
     # Serialize to YAML
-    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False, sort_keys=False)
+    yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print("Dumping YAML data...")
     print(f"{yaml_data}")
     # Write YAML data to file
@@ -67,7 +67,7 @@ def main():
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
-    json_data = json.dumps(line.model_dump(), indent=2, sort_keys=False)
+    json_data = json.dumps(line.model_dump(), indent=2)
     print("Dumping JSON data...")
     print(f"{json_data}")
     # Write JSON data to file
