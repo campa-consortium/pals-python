@@ -1,4 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    model_serializer,
+)
 from typing import Literal, Optional
 
 
@@ -14,3 +18,9 @@ class BaseElement(BaseModel):
 
     # Unique element name
     name: Optional[str] = None
+
+    @model_serializer
+    def _serialize(self):
+        data = self.__dict__.copy()
+        data.pop("name", None)
+        return data
