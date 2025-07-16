@@ -73,12 +73,9 @@ class Line(BaseModel):
         # Reformat 'line' field as list of single-key dicts
         new_line = []
         for elem in self.line:
-            # The element's name is the dict key; dump all other fields except 'name'
-            elem_dict = elem.model_dump(exclude={"name"}, **kwargs)
-            name = getattr(elem, "name", None)
-            if name is None:
-                raise ValueError("Element missing 'name' attribute")
-            new_line.append({name: elem_dict})
+            #  Use custom dump for each line element
+            elem_dict = elem.model_dump(**kwargs)[0]
+            new_line.append(elem_dict)
 
         data["line"] = new_line
         return data
