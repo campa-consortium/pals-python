@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Literal, Optional
+from typing import Literal
 
 
 class BaseElement(BaseModel):
@@ -12,5 +12,14 @@ class BaseElement(BaseModel):
     # not only when an instance of BaseElement is created
     model_config = ConfigDict(validate_assignment=True)
 
-    # Unique element name
-    name: Optional[str] = None
+    # element name
+    name: str
+
+    def model_dump(self, *args, **kwargs):
+        """This makes sure the element name property is moved out and up to a one-key dictionary"""
+        elem_dict = super().model_dump(*args, **kwargs)
+        name = elem_dict.pop("name", None)
+        if name is None:
+            raise ValueError("Element missing 'name' attribute")
+        data = [{name: elem_dict}]
+        return data
