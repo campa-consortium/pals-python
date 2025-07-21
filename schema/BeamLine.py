@@ -7,14 +7,14 @@ from schema.DriftElement import DriftElement
 from schema.QuadrupoleElement import QuadrupoleElement
 
 
-class Line(BaseModel):
+class BeamLine(BaseModel):
     """A line of elements and/or other lines"""
 
     # Validate every time a new value is assigned to an attribute,
-    # not only when an instance of Line is created
+    # not only when an instance of BeamLine is created
     model_config = ConfigDict(validate_assignment=True)
 
-    kind: Literal["Line"] = "Line"
+    kind: Literal["BeamLine"] = "BeamLine"
 
     line: List[
         Annotated[
@@ -23,7 +23,7 @@ class Line(BaseModel):
                 ThickElement,
                 DriftElement,
                 QuadrupoleElement,
-                "Line",
+                "BeamLine",
             ],
             Field(discriminator="kind"),
         ]
@@ -82,4 +82,4 @@ class Line(BaseModel):
 
 
 # Avoid circular import issues
-Line.model_rebuild()
+BeamLine.model_rebuild()
