@@ -43,13 +43,14 @@ def main():
     )
     # Create line with all elements
     line = Line(
+        name="fodo_cell",
         line=[
             drift1,
             quad1,
             drift2,
             quad2,
             drift3,
-        ]
+        ],
     )
     # Serialize to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
@@ -63,7 +64,7 @@ def main():
     with open(yaml_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse YAML data
-    loaded_line = Line(**yaml_data)
+    loaded_line = Line(**yaml_data[0])
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
@@ -78,7 +79,7 @@ def main():
     with open(json_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse JSON data
-    loaded_line = Line(**json_data)
+    loaded_line = Line(**json_data[0])
     # Validate loaded data
     assert line == loaded_line
 

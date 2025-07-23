@@ -104,7 +104,7 @@ def test_QuadrupoleElement():
 def test_Line():
     # Create first line with one base element
     element1 = BaseElement(name="element1")
-    line1 = Line(line=[element1])
+    line1 = Line(name="line1", line=[element1])
     assert line1.line == [element1]
     # Extend first line with one thick element
     element2 = ThickElement(name="element2", length=2.0)
@@ -112,7 +112,7 @@ def test_Line():
     assert line1.line == [element1, element2]
     # Create second line with one drift element
     element3 = DriftElement(name="element3", length=3.0)
-    line2 = Line(line=[element3])
+    line2 = Line(name="line2", line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)
     assert line1.line == [element1, element2, element3]
@@ -124,7 +124,7 @@ def test_yaml():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = Line(line=[element1, element2])
+    line = Line(name="line", line=[element1, element2])
     # Serialize the Line object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -136,7 +136,7 @@ def test_yaml():
     with open(test_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse the YAML data back into a Line object
-    loaded_line = Line(**yaml_data)
+    loaded_line = Line(**yaml_data[0])
     # Remove the test file
     os.remove(test_file)
     # Validate loaded Line object
@@ -149,7 +149,7 @@ def test_json():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = Line(line=[element1, element2])
+    line = Line(name="line", line=[element1, element2])
     # Serialize the Line object to JSON
     json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
     print(f"\n{json_data}")
@@ -161,7 +161,7 @@ def test_json():
     with open(test_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse the JSON data back into a Line object
-    loaded_line = Line(**json_data)
+    loaded_line = Line(**json_data[0])
     # Remove the test file
     os.remove(test_file)
     # Validate loaded Line object
