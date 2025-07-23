@@ -7,7 +7,7 @@ from schema.DriftElement import DriftElement
 from schema.QuadrupoleElement import QuadrupoleElement
 
 
-class Line(BaseModel):
+class Line(BaseElement):
     """A line of elements and/or other lines"""
 
     # Validate every time a new value is assigned to an attribute,
@@ -67,17 +67,17 @@ class Line(BaseModel):
 
     def model_dump(self, *args, **kwargs):
         """This makes sure the element name property is moved out and up to a one-key dictionary"""
-        # Use default dump for non-line fields
+        # Use base element dump first and return a one-element list of the form
+        # [{key: value}], where 'key' is the name of the line and 'value' is a
+        # dictionary with all other properties
         data = super().model_dump(*args, **kwargs)
-
         # Reformat 'line' field as list of single-key dicts
         new_line = []
         for elem in self.line:
             #  Use custom dump for each line element
             elem_dict = elem.model_dump(**kwargs)[0]
             new_line.append(elem_dict)
-
-        data["line"] = new_line
+        data[0][self.name]["line"] = new_line
         return data
 
 
