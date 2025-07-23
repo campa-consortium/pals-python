@@ -56,12 +56,12 @@ class Line(BaseElement):
             elif isinstance(item, dict):
                 if not (len(item) == 1):
                     raise ValueError(
-                        f"Each element must be a dict with exactly one key, but we got {item!r}"
+                        f"Each element must be a dict with exactly one key (the element's name), but we got {item!r}"
                     )
                 name, fields = list(item.items())[0]
                 if not isinstance(fields, dict):
                     raise TypeError(
-                        f"Value for element key {name!r} must be a dict, but we got {fields!r}"
+                        f"Value for element key {name!r} must be a dict (the element's properties), but we got {fields!r}"
                     )
                 fields["name"] = name
                 new_line.append(fields)
