@@ -64,7 +64,7 @@ def main():
     with open(yaml_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse YAML data
-    loaded_line = Line(**yaml_data)
+    loaded_line = Line(**yaml_data[0])
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
@@ -79,7 +79,7 @@ def main():
     with open(json_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse JSON data
-    loaded_line = Line(**json_data)
+    loaded_line = Line(**json_data[0])
     # Validate loaded data
     assert line == loaded_line
 
