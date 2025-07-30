@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pals-schema"
+version = "25.08"
+dependencies = [
+  "pydantic",
+  "pytest",
+  "pyyaml",
+  "toml",
+]
+requires-python = ">=3.9"
+authors = [
+  { name="Axel Huebl", email="axelhuebl@lbl.gov" },
+  { name="Chad Mitchell", email="ChadMitchell@lbl.gov" },
+  { name="David Carl Sagan", email="david.sagan@cornell.edu" },
+  { name="Jean-Luc Vay", email="jlvay@lbl.gov" },
+  { name="Edoardo Zoni", email="ezoni@lbl.gov" },
+]
+maintainers = [
+  { name="Axel Huebl", email="axelhuebl@lbl.gov" },
+  { name="Edoardo Zoni", email="ezoni@lbl.gov" },
+]
+description = "Python implementation for the Particle Accelerator Lattice Standard (PALS)"
+readme = "README.md"
+license = "CC-BY-4.0"
+license-files = ["LICEN[CS]E*"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/campa-consortium/pals-python"
+Issues = "https://github.com/campa-consortium/pals-python/issues"
