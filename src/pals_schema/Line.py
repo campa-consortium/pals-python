@@ -1,10 +1,10 @@
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Annotated, List, Literal, Union
 
-from schema.BaseElement import BaseElement
-from schema.ThickElement import ThickElement
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.BaseElement import BaseElement
+from pals_schema.ThickElement import ThickElement
+from pals_schema.DriftElement import DriftElement
+from pals_schema.QuadrupoleElement import QuadrupoleElement
 
 
 class Line(BaseModel):
