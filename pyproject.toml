@@ -3,7 +3,7 @@ requires = ["setuptools >= 77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pals-schema"
+name = "pals_schema"
 version = "25.08"
 dependencies = [
   "pydantic",
