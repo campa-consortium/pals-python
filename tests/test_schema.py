@@ -1,17 +1,19 @@
-import os
-from pydantic import ValidationError
-
 import json
+import os
+import sys
 import yaml
 
-from schema.MagneticMultipoleParameters import MagneticMultipoleParameters
+# Add the parent directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
-from schema.BaseElement import BaseElement
-from schema.ThickElement import ThickElement
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
+from pydantic import ValidationError
 
-from schema.Line import Line
+from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
+from pals_schema.BaseElement import BaseElement
+from pals_schema.ThickElement import ThickElement
+from pals_schema.DriftElement import DriftElement
+from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.Line import Line
 
 
 def test_BaseElement():
