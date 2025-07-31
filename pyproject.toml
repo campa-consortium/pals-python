@@ -43,5 +43,6 @@ classifiers = [
 test = ["pytest"]
 
 [project.urls]
+Documentation = "https://pals-project.readthedocs.io"
 Repository = "https://github.com/campa-consortium/pals-python"
 Issues = "https://github.com/campa-consortium/pals-python/issues"
