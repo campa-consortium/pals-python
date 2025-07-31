@@ -21,7 +21,7 @@ maintainers = [
 ]
 description = "Python implementation for the Particle Accelerator Lattice Standard (PALS)"
 readme = "README.md"
-license = "CC-BY-4.0"
+license = "BSD-3-Clause-LBNL"
 license-files = ["LICEN[CS]E*"]
 classifiers = [
   "Programming Language :: Python :: 3",
