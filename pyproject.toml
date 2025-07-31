@@ -10,7 +10,7 @@ dependencies = [
   "pyyaml",
   "toml",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 authors = [
   { name="Axel Huebl", email="axelhuebl@lbl.gov" },
   { name="Edoardo Zoni", email="ezoni@lbl.gov" },
@@ -24,8 +24,16 @@ readme = "README.md"
 license = "BSD-3-Clause-LBNL"
 license-files = ["LICEN[CS]E*"]
 classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Pydantic :: 2",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Natural Language :: English",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development",
 ]
 
 [project.optional-dependencies]
