@@ -14,9 +14,6 @@ dependencies = [
 requires-python = ">=3.9"
 authors = [
   { name="Axel Huebl", email="axelhuebl@lbl.gov" },
-  { name="Chad Mitchell", email="ChadMitchell@lbl.gov" },
-  { name="David Carl Sagan", email="david.sagan@cornell.edu" },
-  { name="Jean-Luc Vay", email="jlvay@lbl.gov" },
   { name="Edoardo Zoni", email="ezoni@lbl.gov" },
 ]
 maintainers = [
