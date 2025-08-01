@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pals_schema"
-version = "25.08"
+version = "0.1.0"
 dependencies = [
   "pydantic",
   "pyyaml",
