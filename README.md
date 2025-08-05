@@ -18,8 +18,8 @@ This project implements the PALS schema in a file-agnostic way, mirrored in data
 The corresponding serialized files (and optionally, also the corresponding Python objects) can be human-written, human-read, and automatically validated.
 
 PALS files follow a schema and readers can error out on issues.
-Not every PALS implementation needs to be as detailed as this reference implementation in Python.
-Nonetheless, you can use this implementation to convert between differnt file formats or to validate a file before reading it with your favorite YAML/JSON/TOML/XML/... library in your programming language of choice.
+Not every PALS implementation needs to be as detailed as the reference implementation in Python.
+This implementation can be used to convert between different file formats or to validate a file before reading it with your favorite YAML/JSON/TOML/XML/... library in your programming language of choice.
 
 This will enable us to:
 - exchange lattices between codes;
@@ -47,9 +47,17 @@ Preliminary roadmap:
 5. Reuse the reference implementations and implement readers in community codes for beamline modeling (e.g., the [BLAST codes](https://blast.lbl.gov)).
 
 
-## How to run the tests and examples locally
+## For users
 
-In order to run the tests and examples locally, please follow these steps:
+You can install this Python implementation of PALS via ``pip install pals-schema``. Package releases can be found [here](https://pypi.org/project/pals-schema/).
+
+Once installed, you can run the examples available in the [examples](https://github.com/campa-consortium/pals-python/tree/main/examples) directory to verify that the package was installed correctly.
+
+If you wish to run the unit tests available in the [tests](https://github.com/campa-consortium/pals-python/tree/main/tests) directory, please install the package via ``pip install pals-schema[test]`` to make sure that all additional dependencies (e.g., ``pytest``) are installed correctly.
+
+## For developers
+
+In order to develop and test this Python implementation locally, please follow these steps:
 
 1. Create a conda environment from the `environment.yml` file:
     ```bash
@@ -60,14 +68,10 @@ In order to run the tests and examples locally, please follow these steps:
     conda activate pals-python
     ```
    Please double check the environment name in the `environment.yml` file.
-3. Run the tests locally:
-    ```bash
-    pytest tests -v
-    ```
-   The command line option `-v` increases the verbosity of the output.
-   You can also use the command line option `-s` to display any test output directly in the console (useful for debugging).
-   Please refer to [pytest's documentation](https://docs.pytest.org/en/stable/) for further details on the available command line options and/or run `pytest --help`.
-4. Run the examples locally (e.g., `fodo.py`):
-    ```bash
-    python examples/fodo.py
-    ```
+
+Once you have created the environment with all the required dependencies, you can run the examples available in the [examples](https://github.com/campa-consortium/pals-python/tree/main/examples) directory.
+
+You can also run the unit tests available in the [tests](https://github.com/campa-consortium/pals-python/tree/main/tests) directory via ``pytest tests -v``.
+Here, the command line option `-v` increases the verbosity of the output.
+You can also use the command line option `-s` to display any test output directly in the console (useful for debugging).
+Please refer to [pytest's documentation](https://docs.pytest.org/en/stable/) for further details on the available command line options and/or run `pytest --help`.
