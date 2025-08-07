@@ -4,14 +4,12 @@ import sys
 import yaml
 
 # Add the parent directory to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
-from schema.MagneticMultipoleParameters import MagneticMultipoleParameters
-
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
-
-from schema.Line import Line
+from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
+from pals_schema.DriftElement import DriftElement
+from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.BeamLine import BeamLine
 
 
 def main():
@@ -42,7 +40,7 @@ def main():
         length=0.5,
     )
     # Create line with all elements
-    line = Line(
+    line = BeamLine(
         name="fodo_cell",
         line=[
             drift1,
@@ -64,7 +62,7 @@ def main():
     with open(yaml_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse YAML data
-    loaded_line = Line(**yaml_data[0])
+    loaded_line = BeamLine(**yaml_data[0])
     # Validate loaded data
     assert line == loaded_line
     # Serialize to JSON
@@ -79,7 +77,7 @@ def main():
     with open(json_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse JSON data
-    loaded_line = Line(**json_data[0])
+    loaded_line = BeamLine(**json_data[0])
     # Validate loaded data
     assert line == loaded_line
 

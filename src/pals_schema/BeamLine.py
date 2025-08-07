@@ -1,20 +1,20 @@
 from pydantic import ConfigDict, Field, model_validator
 from typing import Annotated, List, Literal, Union
 
-from schema.BaseElement import BaseElement
-from schema.ThickElement import ThickElement
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.BaseElement import BaseElement
+from pals_schema.ThickElement import ThickElement
+from pals_schema.DriftElement import DriftElement
+from pals_schema.QuadrupoleElement import QuadrupoleElement
 
 
-class Line(BaseElement):
+class BeamLine(BaseElement):
     """A line of elements and/or other lines"""
 
     # Validate every time a new value is assigned to an attribute,
-    # not only when an instance of Line is created
+    # not only when an instance of BeamLine is created
     model_config = ConfigDict(validate_assignment=True)
 
-    kind: Literal["Line"] = "Line"
+    kind: Literal["BeamLine"] = "BeamLine"
 
     line: List[
         Annotated[
@@ -23,7 +23,7 @@ class Line(BaseElement):
                 ThickElement,
                 DriftElement,
                 QuadrupoleElement,
-                "Line",
+                "BeamLine",
             ],
             Field(discriminator="kind"),
         ]
@@ -93,4 +93,4 @@ class Line(BaseElement):
 
 
 # Avoid circular import issues
-Line.model_rebuild()
+BeamLine.model_rebuild()
