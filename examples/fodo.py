@@ -4,14 +4,12 @@ import sys
 import yaml
 
 # Add the parent directory to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
-from schema.MagneticMultipoleParameters import MagneticMultipoleParameters
-
-from schema.DriftElement import DriftElement
-from schema.QuadrupoleElement import QuadrupoleElement
-
-from schema.BeamLine import BeamLine
+from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
+from pals_schema.DriftElement import DriftElement
+from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.BeamLine import BeamLine
 
 
 def main():
