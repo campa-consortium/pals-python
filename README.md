@@ -40,11 +40,9 @@ Preliminary roadmap:
 
 1. Define the PALS schema, using Pydantic.
 2. Document the API.
-3. Reference implementation in Python.
-3.1. Attract additional reference implementations in other languages.
-4. Add supporting helpers, which can import existing MAD-X, Elegant, SXF files.  
-4.1. Try to be as feature complete as possible in these importers.
-5. Reuse the reference implementations and implement readers in community codes for beamline modeling (e.g., the [BLAST codes](https://blast.lbl.gov)).
+3. Develop a reference implementation in Python. Attract additional reference implementations in other languages.
+5. Add supporting helpers, which can import existing MAD-X, Elegant, SXF files. Be as feature complete as possible in these importers.
+6. Reuse the reference implementations and implement readers in community codes for beamline modeling (e.g., the [BLAST codes](https://blast.lbl.gov)).
 
 
 ## For users
