@@ -84,4 +84,6 @@ If you have questions about your rights to use or distribute this software,
 please contact Berkeley Lab's Intellectual Property Office at
 IPO@lbl.gov.
 
-Please find the full copyright notice in [COPYRIGHT.txt](COPYRIGHT.txt) and the full license agreement in [LICENSE.txt](LICENSE.txt).
+Please find the full copyright notice in [NOTICE.txt](NOTICE.txt) and the full license agreement in [LICENSE.txt](LICENSE.txt).
+
+The SPDX license identifier is `BSD-3-Clause-LBNL`.
