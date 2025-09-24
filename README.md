@@ -73,3 +73,17 @@ You can also run the unit tests available in the [tests](https://github.com/camp
 Here, the command line option `-v` increases the verbosity of the output.
 You can also use the command line option `-s` to display any test output directly in the console (useful for debugging).
 Please refer to [pytest's documentation](https://docs.pytest.org/en/stable/) for further details on the available command line options and/or run `pytest --help`.
+
+## Copyright Notice and License Agreement
+
+PALS Python Copyright (c) 2025, The Regents of the University of California,
+through Lawrence Berkeley National Laboratory (subject to receipt of
+any required approvals from the U.S. Dept. of Energy). All rights reserved.
+
+If you have questions about your rights to use or distribute this software,
+please contact Berkeley Lab's Intellectual Property Office at
+IPO@lbl.gov.
+
+Please find the full copyright notice in [NOTICE.txt](NOTICE.txt) and the full license agreement in [LICENSE.txt](LICENSE.txt).
+
+The SPDX license identifier is `BSD-3-Clause-LBNL`.
