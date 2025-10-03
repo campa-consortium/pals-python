@@ -78,17 +78,16 @@ class BeamLine(BaseElement):
 
     def model_dump(self, *args, **kwargs):
         """This makes sure the element name property is moved out and up to a one-key dictionary"""
-        # Use base element dump first and return a one-element list of the form
-        # [{key: value}], where 'key' is the name of the line and 'value' is a
-        # dict with all other properties
+        # Use base element dump first and return a dict {key: value}, where 'key'
+        # is the name of the line and 'value' is a dict with all other properties
         data = super().model_dump(*args, **kwargs)
-        # Reformat 'line' field as list of single-key dicts
+        # Reformat 'line' field as list of element dicts
         new_line = []
         for elem in self.line:
-            #  Use custom dump for each line element
-            elem_dict = elem.model_dump(**kwargs)[0]
+            # Use custom dump for each line element, which now returns a dict
+            elem_dict = elem.model_dump(**kwargs)
             new_line.append(elem_dict)
-        data[0][self.name]["line"] = new_line
+        data[self.name]["line"] = new_line
         return data
 
 

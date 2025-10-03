@@ -138,7 +138,7 @@ def test_yaml():
     with open(test_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse the YAML data back into a BeamLine object
-    loaded_line = BeamLine(**yaml_data[0])
+    loaded_line = BeamLine(**yaml_data)
     # Remove the test file
     os.remove(test_file)
     # Validate loaded BeamLine object
@@ -163,7 +163,7 @@ def test_json():
     with open(test_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse the JSON data back into a BeamLine object
-    loaded_line = BeamLine(**json_data[0])
+    loaded_line = BeamLine(**json_data)
     # Remove the test file
     os.remove(test_file)
     # Validate loaded BeamLine object
