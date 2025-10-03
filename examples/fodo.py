@@ -41,13 +41,14 @@ def main():
     )
     # Create line with all elements
     line = BeamLine(
+        name="fodo_cell",
         line=[
             drift1,
             quad1,
             drift2,
             quad2,
             drift3,
-        ]
+        ],
     )
     # Serialize to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)

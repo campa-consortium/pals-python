@@ -21,5 +21,8 @@ class BaseElement(BaseModel):
         name = elem_dict.pop("name", None)
         if name is None:
             raise ValueError("Element missing 'name' attribute")
-        data = [{name: elem_dict}]
+        # Return a dict {name: properties} rather than a single-item list
+        # This makes the serialized form a plain dict so it can be passed to
+        # constructors using keyword expansion (e.g., Model(**data))
+        data = {name: elem_dict}
         return data
