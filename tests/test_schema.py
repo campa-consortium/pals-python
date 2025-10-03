@@ -8,12 +8,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/
 
 from pydantic import ValidationError
 
-from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
-from pals_schema.BaseElement import BaseElement
-from pals_schema.ThickElement import ThickElement
-from pals_schema.DriftElement import DriftElement
-from pals_schema.QuadrupoleElement import QuadrupoleElement
-from pals_schema.BeamLine import BeamLine
+from pals.MagneticMultipoleParameters import MagneticMultipoleParameters
+from pals.BaseElement import BaseElement
+from pals.ThickElement import ThickElement
+from pals.DriftElement import DriftElement
+from pals.QuadrupoleElement import QuadrupoleElement
+from pals.BeamLine import BeamLine
 
 
 def test_BaseElement():
