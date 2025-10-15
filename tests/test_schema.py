@@ -11,8 +11,8 @@ from pydantic import ValidationError
 from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
 from pals_schema.BaseElement import BaseElement
 from pals_schema.ThickElement import ThickElement
-from pals_schema.DriftElement import DriftElement
-from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.Drift import Drift
+from pals_schema.Quadrupole import Quadrupole
 from pals_schema.BeamLine import BeamLine
 
 
@@ -45,11 +45,11 @@ def test_ThickElement():
     assert not passed
 
 
-def test_DriftElement():
+def test_Drift():
     # Create one drift element with custom name and length
     element_name = "drift_element"
     element_length = 1.0
-    element = DriftElement(
+    element = Drift(
         name=element_name,
         length=element_length,
     )
@@ -67,7 +67,7 @@ def test_DriftElement():
     assert not passed
 
 
-def test_QuadrupoleElement():
+def test_Quadrupole():
     # Create one drift element with custom name and length
     element_name = "quadrupole_element"
     element_length = 1.0
@@ -85,7 +85,7 @@ def test_QuadrupoleElement():
         Bs2=element_magnetic_multipole_Bs2,
         tilt2=element_magnetic_multipole_tilt2,
     )
-    element = QuadrupoleElement(
+    element = Quadrupole(
         name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
@@ -113,7 +113,7 @@ def test_BeamLine():
     line1.line.extend([element2])
     assert line1.line == [element1, element2]
     # Create second line with one drift element
-    element3 = DriftElement(name="element3", length=3.0)
+    element3 = Drift(name="element3", length=3.0)
     line2 = BeamLine(name="line2", line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)

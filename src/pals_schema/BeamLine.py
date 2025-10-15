@@ -3,8 +3,8 @@ from typing import Annotated, List, Literal, Union
 
 from pals_schema.BaseElement import BaseElement
 from pals_schema.ThickElement import ThickElement
-from pals_schema.DriftElement import DriftElement
-from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.Drift import Drift
+from pals_schema.Quadrupole import Quadrupole
 
 
 class BeamLine(BaseElement):
@@ -21,8 +21,8 @@ class BeamLine(BaseElement):
             Union[
                 BaseElement,
                 ThickElement,
-                DriftElement,
-                QuadrupoleElement,
+                Drift,
+                Quadrupole,
                 "BeamLine",
             ],
             Field(discriminator="kind"),
