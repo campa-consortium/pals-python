@@ -7,35 +7,35 @@ import yaml
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
 from pals_schema.MagneticMultipoleParameters import MagneticMultipoleParameters
-from pals_schema.DriftElement import DriftElement
-from pals_schema.QuadrupoleElement import QuadrupoleElement
+from pals_schema.Drift import Drift
+from pals_schema.Quadrupole import Quadrupole
 from pals_schema.BeamLine import BeamLine
 
 
 def main():
-    drift1 = DriftElement(
+    drift1 = Drift(
         name="drift1",
         length=0.25,
     )
-    quad1 = QuadrupoleElement(
+    quad1 = Quadrupole(
         name="quad1",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=1.0,
         ),
     )
-    drift2 = DriftElement(
+    drift2 = Drift(
         name="drift2",
         length=0.5,
     )
-    quad2 = QuadrupoleElement(
+    quad2 = Quadrupole(
         name="quad2",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=-1.0,
         ),
     )
-    drift3 = DriftElement(
+    drift3 = Drift(
         name="drift3",
         length=0.5,
     )
