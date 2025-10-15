@@ -4,7 +4,7 @@ from .ThickElement import ThickElement
 from .MagneticMultipoleParameters import MagneticMultipoleParameters
 
 
-class QuadrupoleElement(ThickElement):
+class Quadrupole(ThickElement):
     """A quadrupole element"""
 
     # Discriminator field

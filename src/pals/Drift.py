@@ -3,7 +3,7 @@ from typing import Literal
 from .ThickElement import ThickElement
 
 
-class DriftElement(ThickElement):
+class Drift(ThickElement):
     """A field free region"""
 
     # Discriminator field

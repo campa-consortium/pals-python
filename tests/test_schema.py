@@ -11,8 +11,8 @@ from pydantic import ValidationError
 from pals.MagneticMultipoleParameters import MagneticMultipoleParameters
 from pals.BaseElement import BaseElement
 from pals.ThickElement import ThickElement
-from pals.DriftElement import DriftElement
-from pals.QuadrupoleElement import QuadrupoleElement
+from pals.Drift import Drift
+from pals.Quadrupole import Quadrupole
 from pals.BeamLine import BeamLine
 
 
@@ -45,11 +45,11 @@ def test_ThickElement():
     assert not passed
 
 
-def test_DriftElement():
+def test_Drift():
     # Create one drift element with custom name and length
     element_name = "drift_element"
     element_length = 1.0
-    element = DriftElement(
+    element = Drift(
         name=element_name,
         length=element_length,
     )
@@ -67,7 +67,7 @@ def test_DriftElement():
     assert not passed
 
 
-def test_QuadrupoleElement():
+def test_Quadrupole():
     # Create one drift element with custom name and length
     element_name = "quadrupole_element"
     element_length = 1.0
@@ -85,7 +85,7 @@ def test_QuadrupoleElement():
         Bs2=element_magnetic_multipole_Bs2,
         tilt2=element_magnetic_multipole_tilt2,
     )
-    element = QuadrupoleElement(
+    element = Quadrupole(
         name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
@@ -106,15 +106,15 @@ def test_QuadrupoleElement():
 def test_BeamLine():
     # Create first line with one base element
     element1 = BaseElement(name="element1")
-    line1 = BeamLine(line=[element1])
+    line1 = BeamLine(name="line1", line=[element1])
     assert line1.line == [element1]
     # Extend first line with one thick element
     element2 = ThickElement(name="element2", length=2.0)
     line1.line.extend([element2])
     assert line1.line == [element1, element2]
     # Create second line with one drift element
-    element3 = DriftElement(name="element3", length=3.0)
-    line2 = BeamLine(line=[element3])
+    element3 = Drift(name="element3", length=3.0)
+    line2 = BeamLine(name="line2", line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)
     assert line1.line == [element1, element2, element3]
@@ -126,7 +126,7 @@ def test_yaml():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = BeamLine(line=[element1, element2])
+    line = BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -151,7 +151,7 @@ def test_json():
     # Create one thick element
     element2 = ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = BeamLine(line=[element1, element2])
+    line = BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to JSON
     json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
     print(f"\n{json_data}")

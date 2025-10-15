@@ -7,47 +7,48 @@ import yaml
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
 from pals.MagneticMultipoleParameters import MagneticMultipoleParameters
-from pals.DriftElement import DriftElement
-from pals.QuadrupoleElement import QuadrupoleElement
+from pals.Drift import Drift
+from pals.Quadrupole import Quadrupole
 from pals.BeamLine import BeamLine
 
 
 def main():
-    drift1 = DriftElement(
+    drift1 = Drift(
         name="drift1",
         length=0.25,
     )
-    quad1 = QuadrupoleElement(
+    quad1 = Quadrupole(
         name="quad1",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=1.0,
         ),
     )
-    drift2 = DriftElement(
+    drift2 = Drift(
         name="drift2",
         length=0.5,
     )
-    quad2 = QuadrupoleElement(
+    quad2 = Quadrupole(
         name="quad2",
         length=1.0,
         MagneticMultipoleP=MagneticMultipoleParameters(
             Bn1=-1.0,
         ),
     )
-    drift3 = DriftElement(
+    drift3 = Drift(
         name="drift3",
         length=0.5,
     )
     # Create line with all elements
     line = BeamLine(
+        name="fodo_cell",
         line=[
             drift1,
             quad1,
             drift2,
             quad2,
             drift3,
-        ]
+        ],
     )
     # Serialize to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
