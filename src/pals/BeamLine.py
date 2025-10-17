@@ -1,10 +1,10 @@
 from pydantic import ConfigDict, Field, model_validator
 from typing import Annotated, List, Literal, Union
 
-from pals.BaseElement import BaseElement
-from pals.ThickElement import ThickElement
-from pals.Drift import Drift
-from pals.Quadrupole import Quadrupole
+from .BaseElement import BaseElement
+from .ThickElement import ThickElement
+from .Drift import Drift
+from .Quadrupole import Quadrupole
 
 
 class BeamLine(BaseElement):
