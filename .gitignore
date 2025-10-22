@@ -1,4 +1,18 @@
-__pycache__/
-.pytest_cache/
 .ruff_cache/
 *.swp
+
+##########
+# Python #
+##########
+*.pyc
+__pycache__/
+.pytest_cache
+*.egg-info/
+*.ipynb_checkpoints/
+
+#######
+# IDE #
+#######
+.idea/
+.kdev?/
+*.kdev?
