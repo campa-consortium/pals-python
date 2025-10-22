@@ -1,7 +1,7 @@
 from typing import Literal
 
 from .ThickElement import ThickElement
-from .MagneticMultipoleParameters import MagneticMultipoleParameters
+from ..parameters import MagneticMultipoleParameters
 
 
 class Quadrupole(ThickElement):
