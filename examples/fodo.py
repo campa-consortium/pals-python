@@ -1,10 +1,5 @@
 import json
-import os
-import sys
 import yaml
-
-# Add the parent directory to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/")))
 
 from pals import MagneticMultipoleParameters
 from pals import Drift
