@@ -65,11 +65,18 @@ In order to develop and test this Python implementation locally, please follow t
     ```bash
     conda activate pals-python
     ```
-   Please double check the environment name in the `environment.yml` file.
+   (This is the environment name in the `environment.yml` file.)
+3. Install Python PALS in development (editable) mode:
+    ```bash
+    pip install -e .
+    ```
 
 Once you have created the environment with all the required dependencies, you can run the examples available in the [examples](https://github.com/campa-consortium/pals-python/tree/main/examples) directory.
 
-You can also run the unit tests available in the [tests](https://github.com/campa-consortium/pals-python/tree/main/tests) directory via ``pytest tests -v``.
+You can also run the unit tests available in the [tests](https://github.com/campa-consortium/pals-python/tree/main/tests) directory via
+```bash
+pytest tests -v
+```
 Here, the command line option `-v` increases the verbosity of the output.
 You can also use the command line option `-s` to display any test output directly in the console (useful for debugging).
 Please refer to [pytest's documentation](https://docs.pytest.org/en/stable/) for further details on the available command line options and/or run `pytest --help`.
