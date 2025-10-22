@@ -6,6 +6,37 @@ from .ThickElement import ThickElement
 from .Drift import Drift
 from .Quadrupole import Quadrupole
 
+# Import schema elements
+from .Marker import Marker
+from .Sextupole import Sextupole
+from .Octupole import Octupole
+from .Multipole import Multipole
+from .RBend import RBend
+from .SBend import SBend
+from .Solenoid import Solenoid
+from .RFCavity import RFCavity
+from .Patch import Patch
+from .FloorShift import FloorShift
+from .Fork import Fork
+from .BeamBeam import BeamBeam
+from .BeginningEle import BeginningEle
+from .Fiducial import Fiducial
+from .NullEle import NullEle
+from .Kicker import Kicker
+from .ACKicker import ACKicker
+from .CrabCavity import CrabCavity
+from .EGun import EGun
+from .Feedback import Feedback
+from .Girder import Girder
+from .Instrument import Instrument
+from .Mask import Mask
+from .Match import Match
+from .Taylor import Taylor
+from .Wiggler import Wiggler
+from .Converter import Converter
+from .Foil import Foil
+from .UnionEle import UnionEle
+
 
 class BeamLine(BaseElement):
     """A line of elements and/or other lines"""
@@ -19,11 +50,43 @@ class BeamLine(BaseElement):
     line: List[
         Annotated[
             Union[
+                # Base classes (for testing compatibility)
                 BaseElement,
                 ThickElement,
+                # Original elements
                 Drift,
                 Quadrupole,
                 "BeamLine",
+                # New schema elements
+                Marker,
+                Sextupole,
+                Octupole,
+                Multipole,
+                RBend,
+                SBend,
+                Solenoid,
+                RFCavity,
+                Patch,
+                FloorShift,
+                Fork,
+                BeamBeam,
+                BeginningEle,
+                Fiducial,
+                NullEle,
+                Kicker,
+                ACKicker,
+                CrabCavity,
+                EGun,
+                Feedback,
+                Girder,
+                Instrument,
+                Mask,
+                Match,
+                Taylor,
+                Wiggler,
+                Converter,
+                Foil,
+                UnionEle,
             ],
             Field(discriminator="kind"),
         ]
