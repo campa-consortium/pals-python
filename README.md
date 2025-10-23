@@ -68,7 +68,7 @@ In order to develop and test this Python implementation locally, please follow t
    (This is the environment name in the `environment.yml` file.)
 3. Install Python PALS in development (editable) mode:
     ```bash
-    pip install -e .
+    pip install -e ".[test]"
     ```
 
 Once you have created the environment with all the required dependencies, you can run the examples available in the [examples](https://github.com/campa-consortium/pals-python/tree/main/examples) directory.
