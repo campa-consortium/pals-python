@@ -5,6 +5,7 @@ channels:
   - nodefaults
 
 dependencies:
+  - conda
   - pre-commit
   - pydantic
   - pytest
