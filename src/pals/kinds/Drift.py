@@ -4,7 +4,7 @@ from .ThickElement import ThickElement
 
 
 class Drift(ThickElement):
-    """A field free region"""
+    """Field free region"""
 
     # Discriminator field
     kind: Literal["Drift"] = "Drift"
