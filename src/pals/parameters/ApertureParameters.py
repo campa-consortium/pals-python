@@ -1,12 +1,9 @@
 from typing import List
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class ApertureParameters(BaseModel):
     """Aperture parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     x_limits: List[float] = [float("nan"), float("nan")]
     y_limits: List[float] = [float("nan"), float("nan")]

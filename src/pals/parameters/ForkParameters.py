@@ -1,11 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class ForkParameters(BaseModel):
     """Fork parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     to_line: str = ""
     to_ele: str = ""

@@ -1,66 +1,12 @@
 from pydantic import ValidationError
 
-from pals.kinds import (
-    BaseElement,
-    ThickElement,
-    Drift,
-    Quadrupole,
-    BeamLine,
-    CrabCavity,
-    EGun,
-    Fork,
-    Mask,
-    RBend,
-    Marker,
-    ACKicker,
-    Solenoid,
-    BeamBeam,
-    Girder,
-    Taylor,
-    FloorShift,
-    Multipole,
-    Wiggler,
-    Octupole,
-    RFCavity,
-    Feedback,
-    BeginningEle,
-    UnionEle,
-    Patch,
-    NullEle,
-    Foil,
-    Sextupole,
-    Instrument,
-    Match,
-    SBend,
-    Fiducial,
-    Converter,
-    Kicker,
-)
-
-from pals.parameters import (
-    SolenoidParameters,
-    FloorParameters,
-    TrackingParameters,
-    FloorShiftParameters,
-    BeamBeamParameters,
-    ApertureParameters,
-    ElectricMultipoleParameters,
-    MagneticMultipoleParameters,
-    ReferenceParameters,
-    BodyShiftParameters,
-    ReferenceChangeParameters,
-    PatchParameters,
-    MetaParameters,
-    ForkParameters,
-    RFParameters,
-    BendParameters,
-)
+import pals
 
 
 def test_BaseElement():
     # Create one base element with custom name
     element_name = "base_element"
-    element = BaseElement(name=element_name)
+    element = pals.BaseElement(name=element_name)
     assert element.name == element_name
 
 
@@ -68,7 +14,7 @@ def test_ThickElement():
     # Create one thick element with custom name and length
     element_name = "thick_element"
     element_length = 1.0
-    element = ThickElement(
+    element = pals.ThickElement(
         name=element_name,
         length=element_length,
     )
@@ -90,7 +36,7 @@ def test_Drift():
     # Create one drift element with custom name and length
     element_name = "drift_element"
     element_length = 1.0
-    element = Drift(
+    element = pals.Drift(
         name=element_name,
         length=element_length,
     )
@@ -120,7 +66,7 @@ def test_Quadrupole():
     element_magnetic_multipole_Bs2 = 2.2
     element_magnetic_multipole_tilt1 = 3.1
     element_magnetic_multipole_tilt2 = 3.2
-    element_magnetic_multipole = MagneticMultipoleParameters(
+    element_magnetic_multipole = pals.MagneticMultipoleParameters(
         Bn1=element_magnetic_multipole_Bn1,
         Bs1=element_magnetic_multipole_Bs1,
         tilt1=element_magnetic_multipole_tilt1,
@@ -128,7 +74,7 @@ def test_Quadrupole():
         Bs2=element_magnetic_multipole_Bs2,
         tilt2=element_magnetic_multipole_tilt2,
     )
-    element = Quadrupole(
+    element = pals.Quadrupole(
         name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
@@ -148,16 +94,16 @@ def test_Quadrupole():
 
 def test_BeamLine():
     # Create first line with one base element
-    element1 = BaseElement(name="element1")
-    line1 = BeamLine(name="line1", line=[element1])
+    element1 = pals.BaseElement(name="element1")
+    line1 = pals.BeamLine(name="line1", line=[element1])
     assert line1.line == [element1]
     # Extend first line with one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = pals.ThickElement(name="element2", length=2.0)
     line1.line.extend([element2])
     assert line1.line == [element1, element2]
     # Create second line with one drift element
-    element3 = Drift(name="element3", length=3.0)
-    line2 = BeamLine(name="line2", line=[element3])
+    element3 = pals.Drift(name="element3", length=3.0)
+    line2 = pals.BeamLine(name="line2", line=[element3])
     # Extend first line with second line
     line1.line.extend(line2.line)
     assert line1.line == [element1, element2, element3]
@@ -165,18 +111,18 @@ def test_BeamLine():
 
 def test_Marker():
     """Test Marker element"""
-    element = Marker(name="marker1")
+    element = pals.Marker(name="marker1")
     assert element.name == "marker1"
     assert element.kind == "Marker"
 
 
 def test_Sextupole():
     """Test Sextupole element"""
-    element = Sextupole(
+    element = pals.Sextupole(
         name="sext1",
         length=0.5,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn2=1.0),
-        ApertureP=ApertureParameters(x_limits=[-0.1, 0.1]),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn2=1.0),
+        ApertureP=pals.ApertureParameters(x_limits=[-0.1, 0.1]),
     )
     assert element.name == "sext1"
     assert element.length == 0.5
@@ -187,11 +133,11 @@ def test_Sextupole():
 
 def test_Octupole():
     """Test Octupole element"""
-    element = Octupole(
+    element = pals.Octupole(
         name="oct1",
         length=0.3,
-        ElectricMultipoleP=ElectricMultipoleParameters(En3=0.5),
-        MetaP=MetaParameters(alias="octupole_test"),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En3=0.5),
+        MetaP=pals.MetaParameters(alias="octupole_test"),
     )
     assert element.name == "oct1"
     assert element.length == 0.3
@@ -202,11 +148,11 @@ def test_Octupole():
 
 def test_Multipole():
     """Test Multipole element"""
-    element = Multipole(
+    element = pals.Multipole(
         name="mult1",
         length=0.4,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=2.0, Bn2=1.5),
-        BodyShiftP=BodyShiftParameters(x_offset=0.01),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=2.0, Bn2=1.5),
+        BodyShiftP=pals.BodyShiftParameters(x_offset=0.01),
     )
     assert element.name == "mult1"
     assert element.length == 0.4
@@ -217,13 +163,13 @@ def test_Multipole():
 
 def test_RBend():
     """Test RBend element"""
-    bend_params = BendParameters(rho_ref=1.0, bend_field_ref=2.0)
-    element = RBend(
+    bend_params = pals.BendParameters(rho_ref=1.0, bend_field_ref=2.0)
+    element = pals.RBend(
         name="rbend1",
         length=1.0,
         BendP=bend_params,
-        ApertureP=ApertureParameters(x_limits=[-0.2, 0.2]),
-        MetaP=MetaParameters(description="Test bend"),
+        ApertureP=pals.ApertureParameters(x_limits=[-0.2, 0.2]),
+        MetaP=pals.MetaParameters(description="Test bend"),
     )
     assert element.name == "rbend1"
     assert element.length == 1.0
@@ -235,12 +181,12 @@ def test_RBend():
 
 def test_SBend():
     """Test SBend element"""
-    bend_params = BendParameters(rho_ref=1.5, bend_field_ref=3.0)
-    element = SBend(
+    bend_params = pals.BendParameters(rho_ref=1.5, bend_field_ref=3.0)
+    element = pals.SBend(
         name="sbend1",
         length=1.2,
         BendP=bend_params,
-        ReferenceP=ReferenceParameters(species_ref="proton"),
+        ReferenceP=pals.ReferenceParameters(species_ref="proton"),
     )
     assert element.name == "sbend1"
     assert element.length == 1.2
@@ -251,61 +197,57 @@ def test_SBend():
 
 def test_Solenoid():
     """Test Solenoid element"""
-    sol_params = SolenoidParameters(Ksol=0.1, Bsol=0.2)
-    element = Solenoid(
+    sol_params = pals.SolenoidParameters(Ksol=0.1, Bsol=0.2)
+    element = pals.Solenoid(
         name="sol1",
         length=0.8,
         SolenoidP=sol_params,
-        TrackingP=TrackingParameters(is_on=True),
     )
     assert element.name == "sol1"
     assert element.length == 0.8
     assert element.kind == "Solenoid"
     assert element.SolenoidP.Ksol == 0.1
-    assert element.TrackingP.is_on
 
 
 def test_RFCavity():
     """Test RFCavity element"""
-    rf_params = RFParameters(frequency=1e9, voltage=1e6)
-    element = RFCavity(
+    rf_params = pals.RFParameters(frequency=1e9, voltage=1e6)
+    element = pals.RFCavity(
         name="rf1",
         length=0.5,
         RFP=rf_params,
-        SolenoidP=SolenoidParameters(Ksol=0.05),
-        FloorP=FloorParameters(x_offset=0.1),
+        SolenoidP=pals.SolenoidParameters(Ksol=0.05),
     )
     assert element.name == "rf1"
     assert element.length == 0.5
     assert element.kind == "RFCavity"
     assert element.RFP.frequency == 1e9
     assert element.SolenoidP.Ksol == 0.05
-    assert element.FloorP.x_offset == 0.1
 
 
 def test_Patch():
     """Test Patch element"""
-    patch_params = PatchParameters(x_offset=0.1, y_offset=0.2)
-    element = Patch(
+    patch_params = pals.PatchParameters(x_offset=0.1, y_offset=0.2)
+    element = pals.Patch(
         name="patch1",
         length=0.3,
         PatchP=patch_params,
-        ReferenceChangeP=ReferenceChangeParameters(pc_change=1e6),
+        ReferenceChangeP=pals.ReferenceChangeParameters(dE_ref=1e6),
     )
     assert element.name == "patch1"
     assert element.length == 0.3
     assert element.kind == "Patch"
     assert element.PatchP.x_offset == 0.1
-    assert element.ReferenceChangeP.pc_change == 1e6
+    assert element.ReferenceChangeP.dE_ref == 1e6
 
 
 def test_FloorShift():
     """Test FloorShift element"""
-    floor_params = FloorShiftParameters(x_offset=0.5, z_offset=1.0)
-    element = FloorShift(
+    floor_params = pals.FloorShiftParameters(x_offset=0.5, z_offset=1.0)
+    element = pals.FloorShift(
         name="floor1",
         FloorShiftP=floor_params,
-        MetaP=MetaParameters(alias="floor_test"),
+        MetaP=pals.MetaParameters(alias="floor_test"),
     )
     assert element.name == "floor1"
     assert element.kind == "FloorShift"
@@ -315,11 +257,11 @@ def test_FloorShift():
 
 def test_Fork():
     """Test Fork element"""
-    fork_params = ForkParameters(to_line="line1", direction="FORWARDS")
-    element = Fork(
+    fork_params = pals.ForkParameters(to_line="line1", direction="FORWARDS")
+    element = pals.Fork(
         name="fork1",
         ForkP=fork_params,
-        ReferenceP=ReferenceParameters(species_ref="electron"),
+        ReferenceP=pals.ReferenceParameters(species_ref="electron"),
     )
     assert element.name == "fork1"
     assert element.kind == "Fork"
@@ -329,11 +271,11 @@ def test_Fork():
 
 def test_BeamBeam():
     """Test BeamBeam element"""
-    bb_params = BeamBeamParameters()
-    element = BeamBeam(
+    bb_params = pals.BeamBeamParameters()
+    element = pals.BeamBeam(
         name="bb1",
         BeamBeamP=bb_params,
-        ApertureP=ApertureParameters(x_limits=[-0.05, 0.05]),
+        ApertureP=pals.ApertureParameters(x_limits=[-0.05, 0.05]),
     )
     assert element.name == "bb1"
     assert element.kind == "BeamBeam"
@@ -342,8 +284,8 @@ def test_BeamBeam():
 
 def test_BeginningEle():
     """Test BeginningEle element"""
-    element = BeginningEle(
-        name="begin1", MetaP=MetaParameters(description="Start of lattice")
+    element = pals.BeginningEle(
+        name="begin1", MetaP=pals.MetaParameters(description="Start of lattice")
     )
     assert element.name == "begin1"
     assert element.kind == "BeginningEle"
@@ -352,8 +294,8 @@ def test_BeginningEle():
 
 def test_Fiducial():
     """Test Fiducial element"""
-    element = Fiducial(
-        name="fid1", ReferenceP=ReferenceParameters(species_ref="proton")
+    element = pals.Fiducial(
+        name="fid1", ReferenceP=pals.ReferenceParameters(species_ref="proton")
     )
     assert element.name == "fid1"
     assert element.kind == "Fiducial"
@@ -362,19 +304,18 @@ def test_Fiducial():
 
 def test_NullEle():
     """Test NullEle element"""
-    element = NullEle(name="null1", TrackingP=TrackingParameters(is_on=False))
+    element = pals.NullEle(name="null1")
     assert element.name == "null1"
     assert element.kind == "NullEle"
-    assert not element.TrackingP.is_on
 
 
 def test_Kicker():
     """Test Kicker element"""
-    element = Kicker(
+    element = pals.Kicker(
         name="kick1",
         length=0.2,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.5),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.3),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.5),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.3),
     )
     assert element.name == "kick1"
     assert element.length == 0.2
@@ -385,7 +326,7 @@ def test_Kicker():
 
 def test_ACKicker():
     """Test ACKicker element"""
-    element = ACKicker(name="ackick1", length=0.15)
+    element = pals.ACKicker(name="ackick1", length=0.15)
     assert element.name == "ackick1"
     assert element.length == 0.15
     assert element.kind == "ACKicker"
@@ -393,11 +334,11 @@ def test_ACKicker():
 
 def test_CrabCavity():
     """Test CrabCavity element"""
-    element = CrabCavity(
+    element = pals.CrabCavity(
         name="crab1",
         length=0.25,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.8),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.4),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.8),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.4),
     )
     assert element.name == "crab1"
     assert element.length == 0.25
@@ -408,11 +349,11 @@ def test_CrabCavity():
 
 def test_EGun():
     """Test EGun element"""
-    element = EGun(
+    element = pals.EGun(
         name="egun1",
         length=0.1,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=1.2),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.6),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=1.2),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.6),
     )
     assert element.name == "egun1"
     assert element.length == 0.1
@@ -423,7 +364,9 @@ def test_EGun():
 
 def test_Feedback():
     """Test Feedback element"""
-    element = Feedback(name="fb1", MetaP=MetaParameters(alias="feedback_test"))
+    element = pals.Feedback(
+        name="fb1", MetaP=pals.MetaParameters(alias="feedback_test")
+    )
     assert element.name == "fb1"
     assert element.kind == "Feedback"
     assert element.MetaP.alias == "feedback_test"
@@ -431,20 +374,18 @@ def test_Feedback():
 
 def test_Girder():
     """Test Girder element"""
-    element = Girder(name="girder1", FloorP=FloorParameters(x_offset=0.1, y_offset=0.2))
+    element = pals.Girder(name="girder1")
     assert element.name == "girder1"
     assert element.kind == "Girder"
-    assert element.FloorP.x_offset == 0.1
-    assert element.FloorP.y_offset == 0.2
 
 
 def test_Instrument():
     """Test Instrument element"""
-    element = Instrument(
+    element = pals.Instrument(
         name="inst1",
         length=0.05,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.2),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.1),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.2),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.1),
     )
     assert element.name == "inst1"
     assert element.length == 0.05
@@ -455,11 +396,11 @@ def test_Instrument():
 
 def test_Mask():
     """Test Mask element"""
-    element = Mask(
+    element = pals.Mask(
         name="mask1",
         length=0.02,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.15),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.08),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.15),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.08),
     )
     assert element.name == "mask1"
     assert element.length == 0.02
@@ -470,8 +411,8 @@ def test_Mask():
 
 def test_Match():
     """Test Match element"""
-    element = Match(
-        name="match1", BodyShiftP=BodyShiftParameters(x_offset=0.01, y_rot=0.02)
+    element = pals.Match(
+        name="match1", BodyShiftP=pals.BodyShiftParameters(x_offset=0.01, y_rot=0.02)
     )
     assert element.name == "match1"
     assert element.kind == "Match"
@@ -481,23 +422,25 @@ def test_Match():
 
 def test_Taylor():
     """Test Taylor element"""
-    element = Taylor(
+    element = pals.Taylor(
         name="taylor1",
-        ReferenceChangeP=ReferenceChangeParameters(pc_change=1e6, t_change=1e-9),
+        ReferenceChangeP=pals.ReferenceChangeParameters(
+            dE_ref=1e6, extra_dtime_ref=1e-9
+        ),
     )
     assert element.name == "taylor1"
     assert element.kind == "Taylor"
-    assert element.ReferenceChangeP.pc_change == 1e6
-    assert element.ReferenceChangeP.t_change == 1e-9
+    assert element.ReferenceChangeP.dE_ref == 1e6
+    assert element.ReferenceChangeP.extra_dtime_ref == 1e-9
 
 
 def test_Wiggler():
     """Test Wiggler element"""
-    element = Wiggler(
+    element = pals.Wiggler(
         name="wig1",
         length=2.0,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.5),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.3),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.5),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.3),
     )
     assert element.name == "wig1"
     assert element.length == 2.0
@@ -508,10 +451,10 @@ def test_Wiggler():
 
 def test_Converter():
     """Test Converter element"""
-    element = Converter(
+    element = pals.Converter(
         name="conv1",
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=0.4),
-        ElectricMultipoleP=ElectricMultipoleParameters(En1=0.2),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=0.4),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=0.2),
     )
     assert element.name == "conv1"
     assert element.kind == "Converter"
@@ -521,14 +464,14 @@ def test_Converter():
 
 def test_Foil():
     """Test Foil element"""
-    element = Foil(name="foil1")
+    element = pals.Foil(name="foil1")
     assert element.name == "foil1"
     assert element.kind == "Foil"
 
 
 def test_UnionEle():
     """Test UnionEle element"""
-    element = UnionEle(name="union1", elements=[])
+    element = pals.UnionEle(name="union1", elements=[])
     assert element.name == "union1"
     assert element.kind == "UnionEle"
     assert element.elements == []

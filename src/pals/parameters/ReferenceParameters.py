@@ -1,11 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class ReferenceParameters(BaseModel):
     """Reference parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     species_ref: str = ""
     pc_ref: float = 0.0  # [momentum*c] Reference momentum times speed of light

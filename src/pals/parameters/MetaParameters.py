@@ -1,11 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class MetaParameters(BaseModel):
     """Meta parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     alias: str = ""
     ID: str = ""

@@ -1,8 +1,7 @@
 from typing import Literal, Optional
 
 from .ThickElement import ThickElement
-from ..parameters import ElectricMultipoleParameters
-from ..parameters import MagneticMultipoleParameters
+from ..parameters import ElectricMultipoleParameters, MagneticMultipoleParameters
 from ._warnings import under_construction
 
 
@@ -13,6 +12,6 @@ class Mask(ThickElement):
     # Discriminator field
     kind: Literal["Mask"] = "Mask"
 
-    # Mask-specific parameters (in addition to inherited ones)
+    # Mask-specific parameters
     ElectricMultipoleP: Optional[ElectricMultipoleParameters] = None
     MagneticMultipoleP: Optional[MagneticMultipoleParameters] = None

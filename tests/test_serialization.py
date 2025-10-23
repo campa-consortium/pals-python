@@ -2,65 +2,16 @@ import json
 import os
 import yaml
 
-from pals.kinds import (
-    BaseElement,
-    ThickElement,
-    BeamLine,
-    Drift,
-    Quadrupole,
-    CrabCavity,
-    EGun,
-    Fork,
-    Mask,
-    RBend,
-    Marker,
-    ACKicker,
-    Solenoid,
-    BeamBeam,
-    Girder,
-    Taylor,
-    FloorShift,
-    Multipole,
-    Wiggler,
-    Octupole,
-    RFCavity,
-    Feedback,
-    BeginningEle,
-    UnionEle,
-    Patch,
-    NullEle,
-    Foil,
-    Sextupole,
-    Instrument,
-    Match,
-    SBend,
-    Fiducial,
-    Converter,
-    Kicker,
-)
-
-from pals.parameters import (
-    SolenoidParameters,
-    FloorShiftParameters,
-    BeamBeamParameters,
-    ApertureParameters,
-    ElectricMultipoleParameters,
-    MagneticMultipoleParameters,
-    PatchParameters,
-    MetaParameters,
-    ForkParameters,
-    RFParameters,
-    BendParameters,
-)
+import pals
 
 
 def test_yaml():
     # Create one base element
-    element1 = BaseElement(name="element1")
+    element1 = pals.BaseElement(name="element1")
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = pals.ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = BeamLine(name="line", line=[element1, element2])
+    line = pals.BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to YAML
     yaml_data = yaml.dump(line.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -72,7 +23,7 @@ def test_yaml():
     with open(test_file, "r") as file:
         yaml_data = yaml.safe_load(file)
     # Parse the YAML data back into a BeamLine object
-    loaded_line = BeamLine(**yaml_data)
+    loaded_line = pals.BeamLine(**yaml_data)
     # Remove the test file
     os.remove(test_file)
     # Validate loaded BeamLine object
@@ -81,11 +32,11 @@ def test_yaml():
 
 def test_json():
     # Create one base element
-    element1 = BaseElement(name="element1")
+    element1 = pals.BaseElement(name="element1")
     # Create one thick element
-    element2 = ThickElement(name="element2", length=2.0)
+    element2 = pals.ThickElement(name="element2", length=2.0)
     # Create line with both elements
-    line = BeamLine(name="line", line=[element1, element2])
+    line = pals.BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to JSON
     json_data = json.dumps(line.model_dump(), sort_keys=True, indent=2)
     print(f"\n{json_data}")
@@ -97,7 +48,7 @@ def test_json():
     with open(test_file, "r") as file:
         json_data = json.loads(file.read())
     # Parse the JSON data back into a BeamLine object
-    loaded_line = BeamLine(**json_data)
+    loaded_line = pals.BeamLine(**json_data)
     # Remove the test file
     os.remove(test_file)
     # Validate loaded BeamLine object
@@ -109,128 +60,132 @@ def test_comprehensive_lattice():
 
     # Create elements in alphabetical order for easy maintenance
     # ACKicker
-    ackicker = ACKicker(name="ackicker1", length=0.1)
+    ackicker = pals.ACKicker(name="ackicker1", length=0.1)
 
     # BeamBeam
-    beambeam = BeamBeam(name="beambeam1", BeamBeamP=BeamBeamParameters())
+    beambeam = pals.BeamBeam(name="beambeam1", BeamBeamP=pals.BeamBeamParameters())
 
     # BeginningEle
-    beginning = BeginningEle(name="beginning1")
+    beginning = pals.BeginningEle(name="beginning1")
 
     # Converter
-    converter = Converter(name="converter1")
+    converter = pals.Converter(name="converter1")
 
     # CrabCavity
-    crabcavity = CrabCavity(name="crabcavity1", length=0.2)
+    crabcavity = pals.CrabCavity(name="crabcavity1", length=0.2)
 
     # Drift
-    drift = Drift(name="drift1", length=0.5)
+    drift = pals.Drift(name="drift1", length=0.5)
 
     # EGun
-    egun = EGun(name="egun1", length=0.15)
+    egun = pals.EGun(name="egun1", length=0.15)
 
     # Feedback
-    feedback = Feedback(name="feedback1")
+    feedback = pals.Feedback(name="feedback1")
 
     # Fiducial
-    fiducial = Fiducial(name="fiducial1")
+    fiducial = pals.Fiducial(name="fiducial1")
 
     # FloorShift
-    floorshift = FloorShift(
-        name="floorshift1", FloorShiftP=FloorShiftParameters(x_offset=0.1)
+    floorshift = pals.FloorShift(
+        name="floorshift1", FloorShiftP=pals.FloorShiftParameters(x_offset=0.1)
     )
 
     # Foil
-    foil = Foil(name="foil1")
+    foil = pals.Foil(name="foil1")
 
     # Fork
-    fork = Fork(name="fork1", ForkP=ForkParameters(to_line="line1"))
+    fork = pals.Fork(name="fork1", ForkP=pals.ForkParameters(to_line="line1"))
 
     # Girder
-    girder = Girder(name="girder1")
+    girder = pals.Girder(name="girder1")
 
     # Instrument
-    instrument = Instrument(name="instrument1", length=0.05)
+    instrument = pals.Instrument(name="instrument1", length=0.05)
 
     # Kicker
-    kicker = Kicker(name="kicker1", length=0.1)
+    kicker = pals.Kicker(name="kicker1", length=0.1)
 
     # Marker
-    marker = Marker(name="marker1")
+    marker = pals.Marker(name="marker1")
 
     # Mask
-    mask = Mask(name="mask1", length=0.02)
+    mask = pals.Mask(name="mask1", length=0.02)
 
     # Match
-    match = Match(name="match1")
+    match = pals.Match(name="match1")
 
     # Multipole
-    multipole = Multipole(name="multipole1", length=0.3)
+    multipole = pals.Multipole(name="multipole1", length=0.3)
 
     # NullEle
-    nullele = NullEle(name="nullele1")
+    nullele = pals.NullEle(name="nullele1")
 
     # Octupole
-    octupole = Octupole(
+    octupole = pals.Octupole(
         name="octupole1",
         length=0.25,
-        ElectricMultipoleP=ElectricMultipoleParameters(En3=0.5),
-        MetaP=MetaParameters(alias="octupole_test"),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En3=0.5),
+        MetaP=pals.MetaParameters(alias="octupole_test"),
     )
 
     # Patch
-    patch = Patch(name="patch1", length=0.4, PatchP=PatchParameters(x_offset=0.05))
+    patch = pals.Patch(
+        name="patch1", length=0.4, PatchP=pals.PatchParameters(x_offset=0.05)
+    )
 
     # Quadrupole
-    quadrupole = Quadrupole(
+    quadrupole = pals.Quadrupole(
         name="quadrupole1",
         length=0.8,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn1=1.0),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=1.0),
     )
 
     # RBend
-    rbend = RBend(
+    rbend = pals.RBend(
         name="rbend1",
         length=1.0,
-        BendP=BendParameters(rho_ref=2.0),
-        ApertureP=ApertureParameters(x_limits=[-0.2, 0.2]),
+        BendP=pals.BendParameters(rho_ref=2.0),
+        ApertureP=pals.ApertureParameters(x_limits=[-0.2, 0.2]),
     )
 
     # RFCavity
-    rfcavity = RFCavity(
+    rfcavity = pals.RFCavity(
         name="rfcavity1",
         length=0.3,
-        RFP=RFParameters(frequency=1e9),
-        SolenoidP=SolenoidParameters(Ksol=0.05),
+        RFP=pals.RFParameters(frequency=1e9),
+        SolenoidP=pals.SolenoidParameters(Ksol=0.05),
     )
 
     # SBend
-    sbend = SBend(name="sbend1", length=1.2, BendP=BendParameters(rho_ref=1.5))
+    sbend = pals.SBend(
+        name="sbend1", length=1.2, BendP=pals.BendParameters(rho_ref=1.5)
+    )
 
     # Sextupole
-    sextupole = Sextupole(
+    sextupole = pals.Sextupole(
         name="sextupole1",
         length=0.2,
-        MagneticMultipoleP=MagneticMultipoleParameters(Bn2=1.0),
-        ApertureP=ApertureParameters(x_limits=[-0.1, 0.1]),
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn2=1.0),
+        ApertureP=pals.ApertureParameters(x_limits=[-0.1, 0.1]),
     )
 
     # Solenoid
-    solenoid = Solenoid(
-        name="solenoid1", length=0.6, SolenoidP=SolenoidParameters(Ksol=0.1)
+    solenoid = pals.Solenoid(
+        name="solenoid1", length=0.6, SolenoidP=pals.SolenoidParameters(Ksol=0.1)
     )
 
     # Taylor
-    taylor = Taylor(name="taylor1")
+    taylor = pals.Taylor(name="taylor1")
 
     # UnionEle
-    unionele = UnionEle(name="unionele1", elements=[])
+    unionele = pals.UnionEle(name="unionele1", elements=[])
 
     # Wiggler
-    wiggler = Wiggler(name="wiggler1", length=2.0)
+    wiggler = pals.Wiggler(name="wiggler1", length=2.0)
 
     # Create comprehensive lattice
-    lattice = BeamLine(
+    lattice = pals.BeamLine(
         name="comprehensive_lattice",
         line=[
             beginning,  # Start with beginning element
@@ -281,7 +236,7 @@ def test_comprehensive_lattice():
         loaded_yaml_data = yaml.safe_load(file)
 
     # Deserialize back to Python object using Pydantic model logic
-    loaded_lattice = BeamLine(**loaded_yaml_data)
+    loaded_lattice = pals.BeamLine(**loaded_yaml_data)
 
     # Verify the loaded lattice has the correct structure and parameter groups
     assert len(loaded_lattice.line) == 31  # Should have 31 elements
@@ -329,7 +284,7 @@ def test_comprehensive_lattice():
         loaded_json_data = json.loads(file.read())
 
     # Deserialize back to Python object using Pydantic model logic
-    loaded_lattice_json = BeamLine(**loaded_json_data)
+    loaded_lattice_json = pals.BeamLine(**loaded_json_data)
 
     # Verify the loaded lattice has the correct structure and parameter groups
     assert len(loaded_lattice_json.line) == 31  # Should have 31 elements

@@ -1,12 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class ReferenceChangeParameters(BaseModel):
     """Reference energy change and/or reference time correction parameters"""
 
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
-
-    delta_e: float = 0.0  # [eV] Energy change
-    delta_pc: float = 0.0  # [momentum*c] Momentum change
-    delta_time: float = 0.0  # [s] Time correction
+    dE_ref: float = 0.0  # Change in reference energy
+    extra_dtime_ref: float = 0.0  # Reference time deviation from nominal

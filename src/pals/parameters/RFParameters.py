@@ -1,11 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class RFParameters(BaseModel):
     """RF parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     frequency: float = 0.0  # [Hz] RF frequency
     harmon: int = 0  # [unitless] RF frequency harmonic number

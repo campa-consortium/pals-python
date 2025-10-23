@@ -1,11 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class BendParameters(BaseModel):
     """Bend parameters"""
-
-    # Allow arbitrary fields
-    model_config = ConfigDict(extra="allow")
 
     rho_ref: float = 0.0  # [radian] Reference bend angle
     bend_field_ref: float = 0.0  # [T] Reference bend field

@@ -1,8 +1,7 @@
 from typing import Literal, Optional
 
 from .BaseElement import BaseElement
-from ..parameters import ElectricMultipoleParameters
-from ..parameters import MagneticMultipoleParameters
+from ..parameters import ElectricMultipoleParameters, MagneticMultipoleParameters
 from ._warnings import under_construction
 
 
@@ -13,6 +12,6 @@ class Converter(BaseElement):
     # Discriminator field
     kind: Literal["Converter"] = "Converter"
 
-    # Converter-specific parameters (in addition to inherited ones)
+    # Converter-specific parameters
     ElectricMultipoleP: Optional[ElectricMultipoleParameters] = None
     MagneticMultipoleP: Optional[MagneticMultipoleParameters] = None

@@ -7,4 +7,5 @@ class ElectricMultipoleParameters(BaseModel):
     # Allow arbitrary fields
     model_config = ConfigDict(extra="allow")
 
-    # Parameters will be added when construction is complete
+    # TODO: add ElectricMultipoleParameters in a follow-up RP
+    # https://pals-project.readthedocs.io/en/latest/element-parameters.html#electricmultipolep-electric-multipole-parameters

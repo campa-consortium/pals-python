@@ -1,22 +1,21 @@
 from pals import MagneticMultipoleParameters
 
-# Import parameter classes
-from pals.parameters import (
-    SolenoidParameters,
-    FloorParameters,
-    TrackingParameters,
-    FloorShiftParameters,
-    BeamBeamParameters,
+from pals import (
     ApertureParameters,
-    ElectricMultipoleParameters,
-    ReferenceParameters,
-    BodyShiftParameters,
-    ReferenceChangeParameters,
-    PatchParameters,
-    MetaParameters,
-    ForkParameters,
-    RFParameters,
+    BeamBeamParameters,
     BendParameters,
+    BodyShiftParameters,
+    ElectricMultipoleParameters,
+    # FloorParameters,  # not yet tested
+    FloorShiftParameters,
+    ForkParameters,
+    MetaParameters,
+    PatchParameters,
+    ReferenceChangeParameters,
+    ReferenceParameters,
+    RFParameters,
+    SolenoidParameters,
+    # TrackingParameters,  # not yet tested
 )
 
 
@@ -71,20 +70,16 @@ def test_ParameterClasses():
     ref = ReferenceParameters(species_ref="electron", pc_ref=1e6)
     assert ref.species_ref == "electron"
 
-    # Test TrackingParameters
-    tracking = TrackingParameters(is_on=True)
-    assert tracking.is_on
+    # TODO: Test TrackingParameters
+    # tracking = TrackingParameters(...)
+    # assert tracking.i..
 
-    # Test FloorParameters
-    floor_pos = FloorParameters(x_offset=0.1, y_offset=0.2, z_offset=0.3)
-    assert floor_pos.x_offset == 0.1
-    assert floor_pos.y_offset == 0.2
-    assert floor_pos.z_offset == 0.3
+    # TODO: Test FloorParameters
 
     # Test ReferenceChangeParameters
-    ref_change = ReferenceChangeParameters(pc_change=1e6, t_change=1e-9)
-    assert ref_change.pc_change == 1e6
-    assert ref_change.t_change == 1e-9
+    ref_change = ReferenceChangeParameters(extra_dtime_ref=1e6, dE_ref=1e-9)
+    assert ref_change.extra_dtime_ref == 1e6
+    assert ref_change.dE_ref == 1e-9
 
     # Test BeamBeamParameters
     beambeam = BeamBeamParameters()
