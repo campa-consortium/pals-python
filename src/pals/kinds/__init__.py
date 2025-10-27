@@ -34,3 +34,8 @@ from .Solenoid import Solenoid  # noqa: F401
 from .Taylor import Taylor  # noqa: F401
 from .UnionEle import UnionEle  # noqa: F401
 from .Wiggler import Wiggler  # noqa: F401
+
+
+# Rebuild pydantic models that depend on other classes
+UnionEle.model_rebuild()
+BeamLine.model_rebuild()

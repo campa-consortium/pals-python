@@ -1,156 +1,27 @@
-from pydantic import ConfigDict, Field, model_validator
-from typing import Annotated, List, Literal, Union
+from pydantic import model_validator
+from typing import List, Literal
 
-from .BaseElement import BaseElement
-from .ThickElement import ThickElement
-
-from .ACKicker import ACKicker
-from .BeamBeam import BeamBeam
-from .BeginningEle import BeginningEle
-from .Converter import Converter
-from .CrabCavity import CrabCavity
-from .Drift import Drift
-from .EGun import EGun
-from .Feedback import Feedback
-from .Fiducial import Fiducial
-from .FloorShift import FloorShift
-from .Foil import Foil
-from .Fork import Fork
-from .Girder import Girder
-from .Instrument import Instrument
-from .Kicker import Kicker
-from .Marker import Marker
-from .Mask import Mask
-from .Match import Match
-from .Multipole import Multipole
-from .NullEle import NullEle
-from .Octupole import Octupole
-from .Patch import Patch
-from .Quadrupole import Quadrupole
-from .RBend import RBend
-from .RFCavity import RFCavity
-from .SBend import SBend
-from .Sextupole import Sextupole
-from .Solenoid import Solenoid
-from .Taylor import Taylor
-from .UnionEle import UnionEle
-from .Wiggler import Wiggler
+from .all_elements import get_all_elements_as_annotation
+from .mixin import BaseElement
 
 
 class BeamLine(BaseElement):
     """A line of elements and/or other lines"""
 
-    # Validate every time a new value is assigned to an attribute,
-    # not only when an instance of BeamLine is created
-    model_config = ConfigDict(validate_assignment=True)
-
     kind: Literal["BeamLine"] = "BeamLine"
 
-    line: List[
-        Annotated[
-            Union[
-                # Base classes (for testing compatibility)
-                BaseElement,
-                ThickElement,
-                # User-Facing element kinds
-                "BeamLine",
-                ACKicker,
-                BeamBeam,
-                BeginningEle,
-                Converter,
-                CrabCavity,
-                Drift,
-                EGun,
-                Feedback,
-                Fiducial,
-                FloorShift,
-                Foil,
-                Fork,
-                Girder,
-                Instrument,
-                Kicker,
-                Marker,
-                Mask,
-                Match,
-                Multipole,
-                NullEle,
-                Octupole,
-                Patch,
-                Quadrupole,
-                RBend,
-                RFCavity,
-                SBend,
-                Sextupole,
-                Solenoid,
-                Taylor,
-                UnionEle,
-                Wiggler,
-            ],
-            Field(discriminator="kind"),
-        ]
-    ]
+    line: List[get_all_elements_as_annotation()]
 
     @model_validator(mode="before")
     @classmethod
     def unpack_yaml_structure(cls, data):
-        # Handle the top-level one-key dict: unpack the line's name
-        if isinstance(data, dict) and len(data) == 1:
-            name, value = list(data.items())[0]
-            if not isinstance(value, dict):
-                raise TypeError(
-                    f"Value for line key {name!r} must be a dict, but we got {value!r}"
-                )
-            value["name"] = name
-            data = value
-        # Handle the 'line' field: unpack each element's name
-        if "line" not in data:
-            raise ValueError("'line' field is missing")
-        if not isinstance(data["line"], list):
-            raise TypeError("'line' must be a list")
-        new_line = []
-        # Loop over all elements in the line
-        for item in data["line"]:
-            # An element can be a string that refers to another element
-            if isinstance(item, str):
-                raise RuntimeError("Reference/alias elements not yet implemented")
-            # An element can be a dict
-            elif isinstance(item, dict):
-                if not (len(item) == 1):
-                    raise ValueError(
-                        f"Each element must be a dict with exactly one key (the element's name), but we got {item!r}"
-                    )
-                name, fields = list(item.items())[0]
-                if not isinstance(fields, dict):
-                    raise TypeError(
-                        f"Value for element key {name!r} must be a dict (the element's properties), but we got {fields!r}"
-                    )
-                fields["name"] = name
-                new_line.append(fields)
-            # An element can be an instance of an existing model
-            elif isinstance(item, BaseElement):
-                # Nothing to do, keep the element as is
-                new_line.append(item)
-            else:
-                raise TypeError(
-                    f"Value for element key {name!r} must be a reference string or a dict, but we got {item!r}"
-                )
-        data["line"] = new_line
-        return data
+        """Unpack YAML/JSON/...-like structure for BeamLine elements"""
+        from pals.kinds.mixin.all_element_mixin import unpack_element_list_structure
+
+        return unpack_element_list_structure(data, "line", "line")
 
     def model_dump(self, *args, **kwargs):
-        """This makes sure the element name property is moved out and up to a one-key dictionary"""
-        # Use base element dump first and return a dict {key: value}, where 'key'
-        # is the name of the line and 'value' is a dict with all other properties
-        data = super().model_dump(*args, **kwargs)
-        # Reformat 'line' field as list of element dicts
-        new_line = []
-        for elem in self.line:
-            # Use custom dump for each line element, which now returns a dict
-            elem_dict = elem.model_dump(**kwargs)
-            new_line.append(elem_dict)
-        data[self.name]["line"] = new_line
-        return data
+        """Custom model dump for BeamLine to handle element list formatting"""
+        from pals.kinds.mixin.all_element_mixin import dump_element_list
 
-
-# Avoid circular import issues
-BeamLine.model_rebuild()
+        return dump_element_list(self, "line", *args, **kwargs)
