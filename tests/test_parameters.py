@@ -1,5 +1,3 @@
-from pals import MagneticMultipoleParameters
-
 from pals import (
     ApertureParameters,
     BeamBeamParameters,
@@ -9,6 +7,7 @@ from pals import (
     # FloorParameters,  # not yet tested
     FloorShiftParameters,
     ForkParameters,
+    MagneticMultipoleParameters,
     MetaParameters,
     PatchParameters,
     ReferenceChangeParameters,
