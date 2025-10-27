@@ -1,6 +1,8 @@
+from pydantic import model_validator
 from typing import List, Literal
 
-from .BaseElement import BaseElement
+from .all_elements import get_all_elements_as_annotation
+from .mixin import BaseElement
 
 
 class UnionEle(BaseElement):

@@ -1,6 +1,6 @@
 from typing import Literal
 
-from .ThickElement import ThickElement
+from .mixin import ThickElement
 
 
 class Drift(ThickElement):

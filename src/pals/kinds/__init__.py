@@ -3,7 +3,6 @@ simpler import statements like `from pals import Drift`.
 """
 
 from .ACKicker import ACKicker  # noqa: F401
-from .BaseElement import BaseElement  # noqa: F401
 from .BeamBeam import BeamBeam  # noqa: F401
 from .BeamLine import BeamLine  # noqa: F401
 from .BeginningEle import BeginningEle  # noqa: F401
@@ -33,6 +32,5 @@ from .SBend import SBend  # noqa: F401
 from .Sextupole import Sextupole  # noqa: F401
 from .Solenoid import Solenoid  # noqa: F401
 from .Taylor import Taylor  # noqa: F401
-from .ThickElement import ThickElement  # noqa: F401
 from .UnionEle import UnionEle  # noqa: F401
 from .Wiggler import Wiggler  # noqa: F401

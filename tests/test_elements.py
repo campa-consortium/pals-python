@@ -5,17 +5,21 @@ import pals
 
 
 def test_BaseElement():
+    from pals.kinds.mixin import BaseElement
+
     # Create one base element with custom name
     element_name = "base_element"
-    element = pals.BaseElement(name=element_name)
+    element = BaseElement(name=element_name)
     assert element.name == element_name
 
 
 def test_ThickElement():
+    from pals.kinds.mixin import ThickElement
+
     # Create one thick element with custom name and length
     element_name = "thick_element"
     element_length = 1.0
-    element = pals.ThickElement(
+    element = ThickElement(
         name=element_name,
         length=element_length,
     )
