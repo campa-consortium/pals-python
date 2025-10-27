@@ -85,11 +85,11 @@ def test_Quadrupole():
 
 def test_BeamLine():
     # Create first line with one base element
-    element1 = pals.BaseElement(name="element1")
+    element1 = pals.Marker(name="element1")
     line1 = pals.BeamLine(name="line1", line=[element1])
     assert line1.line == [element1]
     # Extend first line with one thick element
-    element2 = pals.ThickElement(name="element2", length=2.0)
+    element2 = pals.Drift(name="element2", length=2.0)
     line1.line.extend([element2])
     assert line1.line == [element1, element2]
     # Create second line with one drift element

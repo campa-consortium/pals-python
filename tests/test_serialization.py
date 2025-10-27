@@ -7,9 +7,9 @@ import pals
 
 def test_yaml():
     # Create one base element
-    element1 = pals.BaseElement(name="element1")
+    element1 = pals.Marker(name="element1")
     # Create one thick element
-    element2 = pals.ThickElement(name="element2", length=2.0)
+    element2 = pals.Drift(name="element2", length=2.0)
     # Create line with both elements
     line = pals.BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to YAML
@@ -32,9 +32,9 @@ def test_yaml():
 
 def test_json():
     # Create one base element
-    element1 = pals.BaseElement(name="element1")
+    element1 = pals.Marker(name="element1")
     # Create one thick element
-    element2 = pals.ThickElement(name="element2", length=2.0)
+    element2 = pals.Drift(name="element2", length=2.0)
     # Create line with both elements
     line = pals.BeamLine(name="line", line=[element1, element2])
     # Serialize the BeamLine object to JSON
