@@ -1,3 +1,4 @@
+import pytest
 from pydantic import ValidationError
 
 import pals
@@ -23,13 +24,8 @@ def test_ThickElement():
     # Try to assign negative length and
     # detect validation error without breaking pytest
     element_length = -1.0
-    passed = True
-    try:
+    with pytest.raises(ValidationError):
         element.length = element_length
-    except ValidationError as e:
-        print(e)
-        passed = False
-    assert not passed
 
 
 def test_Drift():
@@ -45,13 +41,8 @@ def test_Drift():
     # Try to assign negative length and
     # detect validation error without breaking pytest
     element_length = -1.0
-    passed = True
-    try:
+    with pytest.raises(ValidationError):
         element.length = element_length
-    except ValidationError as e:
-        print(e)
-        passed = False
-    assert not passed
 
 
 def test_Quadrupole():

@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import BaseModel
 
 
@@ -6,5 +7,5 @@ class ForkParameters(BaseModel):
 
     to_line: str = ""
     to_ele: str = ""
-    direction: str = "FORWARDS"  # "FORWARDS" or "BACKWARDS"
+    direction: Literal["FORWARDS", "BACKWARDS"] = "FORWARDS"
     propagate_reference: bool = True

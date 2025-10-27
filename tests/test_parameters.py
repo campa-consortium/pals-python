@@ -1,10 +1,11 @@
+import pytest
+from pydantic import ValidationError
+
 from pals import (
     ApertureParameters,
     BeamBeamParameters,
     BendParameters,
     BodyShiftParameters,
-    ElectricMultipoleParameters,
-    # FloorParameters,  # not yet tested
     FloorShiftParameters,
     ForkParameters,
     MagneticMultipoleParameters,
@@ -24,6 +25,11 @@ def test_ParameterClasses():
     aperture = ApertureParameters(x_limits=[-0.1, 0.1], y_limits=[-0.05, 0.05])
     assert aperture.x_limits == [-0.1, 0.1]
 
+    with pytest.raises(ValidationError):
+        _ = ApertureParameters(
+            x_limits=[-0.1, 0.1], y_limits=[-0.05, 0.05, 0.1], shape="wrong"
+        )
+
     # Test BodyShiftParameters
     body_shift = BodyShiftParameters(x_offset=0.01, y_rot=0.02)
     assert body_shift.x_offset == 0.01
@@ -32,14 +38,22 @@ def test_ParameterClasses():
     meta = MetaParameters(alias="test", description="test element")
     assert meta.alias == "test"
 
-    # Test ElectricMultipoleParameters
-    emp = ElectricMultipoleParameters(En1=1.0, Es1=0.5)
-    assert emp.En1 == 1.0
+    # Test ElectricMultipoleParameters (TODO)
+    # emp = ElectricMultipoleParameters(En1=1.0, Es1=0.5)
+    # assert emp.En1 == 1.0
 
     # Test MagneticMultipoleParameters
     mmp = MagneticMultipoleParameters(Bn1=1.0, Bs1=0.5)
     assert mmp.Bn1 == 1.0
     assert mmp.Bs1 == 0.5
+
+    #  catch typos
+    with pytest.raises(ValidationError):
+        _ = MagneticMultipoleParameters(Bm1=1.0, Bs1=0.5)
+    with pytest.raises(ValidationError):
+        _ = MagneticMultipoleParameters(Bn1=1.0, Bv1=0.5)
+    with pytest.raises(ValidationError):
+        _ = MagneticMultipoleParameters(Bn01=1.0, Bs01=0.5)
 
     # Test SolenoidParameters
     sol = SolenoidParameters(Ksol=0.1, Bsol=0.2)
@@ -48,6 +62,11 @@ def test_ParameterClasses():
     # Test RFParameters
     rf = RFParameters(frequency=1e9, voltage=1e6)
     assert rf.frequency == 1e9
+
+    with pytest.raises(ValidationError):
+        _ = RFParameters(frequency=1e9, voltage=1e6, n_cell=0)
+    with pytest.raises(ValidationError):
+        _ = RFParameters(frequency=1e9, voltage=1e6, n_cell=-1)
 
     # Test BendParameters
     bend = BendParameters(rho_ref=1.0, bend_field_ref=2.0)

@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import BaseModel
 
 
@@ -11,5 +12,5 @@ class PatchParameters(BaseModel):
     y_rot: float = 0.0
     z_rot: float = 0.0
     flexible: bool = False
-    ref_coords: str = "exit_end"  # "entrance_end" or "exit_end"
+    ref_coords: Literal["entrance_end", "exit_end"] = "exit_end"
     user_sets_length: bool = False
