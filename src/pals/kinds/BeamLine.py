@@ -3,39 +3,38 @@ from typing import Annotated, List, Literal, Union
 
 from .BaseElement import BaseElement
 from .ThickElement import ThickElement
-from .Drift import Drift
-from .Quadrupole import Quadrupole
 
-# Import schema elements
-from .Marker import Marker
-from .Sextupole import Sextupole
-from .Octupole import Octupole
-from .Multipole import Multipole
-from .RBend import RBend
-from .SBend import SBend
-from .Solenoid import Solenoid
-from .RFCavity import RFCavity
-from .Patch import Patch
-from .FloorShift import FloorShift
-from .Fork import Fork
+from .ACKicker import ACKicker
 from .BeamBeam import BeamBeam
 from .BeginningEle import BeginningEle
-from .Fiducial import Fiducial
-from .NullEle import NullEle
-from .Kicker import Kicker
-from .ACKicker import ACKicker
+from .Converter import Converter
 from .CrabCavity import CrabCavity
+from .Drift import Drift
 from .EGun import EGun
 from .Feedback import Feedback
+from .Fiducial import Fiducial
+from .FloorShift import FloorShift
+from .Foil import Foil
+from .Fork import Fork
 from .Girder import Girder
 from .Instrument import Instrument
+from .Kicker import Kicker
+from .Marker import Marker
 from .Mask import Mask
 from .Match import Match
+from .Multipole import Multipole
+from .NullEle import NullEle
+from .Octupole import Octupole
+from .Patch import Patch
+from .Quadrupole import Quadrupole
+from .RBend import RBend
+from .RFCavity import RFCavity
+from .SBend import SBend
+from .Sextupole import Sextupole
+from .Solenoid import Solenoid
 from .Taylor import Taylor
-from .Wiggler import Wiggler
-from .Converter import Converter
-from .Foil import Foil
 from .UnionEle import UnionEle
+from .Wiggler import Wiggler
 
 
 class BeamLine(BaseElement):

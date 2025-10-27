@@ -1,18 +1,20 @@
 from typing import Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class ApertureParameters(BaseModel):
     """Aperture parameters"""
 
-    x_limits: list[float | None, float | None] = Field(
-        default=[None, None],
-        validate_args=lambda x: (x[0] is None or x[1] is None or x[0] < x[1]),
-    )
-    y_limits: list[float | None, float | None] = Field(
-        default=[None, None],
-        validate_args=lambda x: (x[0] is None or x[1] is None or x[0] < x[1]),
-    )
+    @field_validator("x_limits", "y_limits")
+    @classmethod
+    def validate_limits(cls, v):
+        """Validate that limits are None or that min < max"""
+        if v[0] is not None and v[1] is not None and v[0] >= v[1]:
+            raise ValueError("Lower limit must be less than upper limit")
+        return v
+
+    x_limits: list[float | None, float | None] = Field(default=[None, None])
+    y_limits: list[float | None, float | None] = Field(default=[None, None])
     shape: Literal["RECTANGULAR", "ELLIPTICAL", "VERTICES", "CUSTOM_SHAPE"] = (
         "RECTANGULAR"
     )
