@@ -1,14 +1,15 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from .ThickElement import ThickElement
-from ..parameters import MagneticMultipoleParameters
+from ..parameters import MagneticMultipoleParameters, ElectricMultipoleParameters
 
 
 class Quadrupole(ThickElement):
-    """A quadrupole element"""
+    """Quadrupole element"""
 
     # Discriminator field
     kind: Literal["Quadrupole"] = "Quadrupole"
 
-    # Magnetic multipole parameters
+    # Octupole-specific parameters
+    ElectricMultipoleP: Optional[ElectricMultipoleParameters] = None
     MagneticMultipoleP: MagneticMultipoleParameters
