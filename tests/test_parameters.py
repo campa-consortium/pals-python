@@ -44,6 +44,7 @@ def test_ParameterClasses():
 
     # Test MagneticMultipoleParameters
     mmp = MagneticMultipoleParameters(tilt1=1.2, Bn1=1.0, Bs1=0.5)
+    assert mmp.tilt1 == 1.2
     assert mmp.Bn1 == 1.0
     assert mmp.Bs1 == 0.5
 
