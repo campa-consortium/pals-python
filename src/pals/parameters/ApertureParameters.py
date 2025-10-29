@@ -1,4 +1,5 @@
-from typing import Literal
+from annotated_types import Ge
+from typing import Annotated, Literal
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -22,6 +23,6 @@ class ApertureParameters(BaseModel):
         "ENTRANCE_END", "CENTER", "EXIT_END", "BOTH_ENDS", "NOWHERE", "EVERYWHERE"
     ] = "ENTRANCE_END"
     material: str = ""
-    thickness: float = Field(default=0.0, ge=0.0)
+    thickness: Annotated[float, Ge(0.0)] = 0.0
     aperture_shifts_with_body: bool = False
     aperture_active: bool = True
