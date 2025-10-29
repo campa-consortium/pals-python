@@ -77,7 +77,7 @@ def unpack_element_list_structure(
 
 
 def dump_element_list(self, field_name: str, *args, **kwargs) -> dict:
-    """Custom model dump for element lists.
+    """Serialize to JSON/YAML/... via a custom pydantic model dump for element lists.
 
     This makes sure the element name property is moved out and up to a one-key dictionary.
 
