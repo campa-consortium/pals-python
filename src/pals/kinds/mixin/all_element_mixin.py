@@ -10,7 +10,7 @@ from . import BaseElement
 def unpack_element_list_structure(
     data: dict, field_name: str, container_type: str
 ) -> dict:
-    """Unpack YAML/JSON/...-like dict structure for element lists.
+    """Deserialize the JSON/YAML/...-like dict for element lists.
 
     This handles both the top-level unpacking and the field-level unpacking
     for elements that contain lists of other elements.

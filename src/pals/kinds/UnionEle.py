@@ -16,8 +16,8 @@ class UnionEle(BaseElement):
 
     @model_validator(mode="before")
     @classmethod
-    def unpack_yaml_structure(cls, data):
-        """Unpack YAML/JSON/...-like structure for UnionEle elements"""
+    def unpack_json_structure(cls, data):
+        """Deserialize the JSON/YAML/...-like dict for UnionEle elements"""
         from pals.kinds.mixin.all_element_mixin import unpack_element_list_structure
 
         return unpack_element_list_structure(data, "elements", "union")
