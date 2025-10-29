@@ -1,6 +1,6 @@
 from typing import Literal, Optional
 
-from .BaseElement import BaseElement
+from .mixin import BaseElement
 from ..parameters import FloorShiftParameters
 
 

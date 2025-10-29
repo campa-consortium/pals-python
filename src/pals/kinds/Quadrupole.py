@@ -1,6 +1,6 @@
 from typing import Literal, Optional
 
-from .ThickElement import ThickElement
+from .mixin import ThickElement
 from ..parameters import MagneticMultipoleParameters, ElectricMultipoleParameters
 
 

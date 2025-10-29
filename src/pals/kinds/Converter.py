@@ -1,8 +1,8 @@
 from typing import Literal, Optional
 
-from .BaseElement import BaseElement
+from .mixin import BaseElement
 from ..parameters import ElectricMultipoleParameters, MagneticMultipoleParameters
-from ._warnings import under_construction
+from .utils import under_construction
 
 
 @under_construction("Converter")

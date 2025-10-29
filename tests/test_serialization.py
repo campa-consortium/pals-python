@@ -178,8 +178,10 @@ def test_comprehensive_lattice():
     # Taylor
     taylor = pals.Taylor(name="taylor1")
 
-    # UnionEle
-    unionele = pals.UnionEle(name="unionele1", elements=[])
+    # UnionEle - with nested elements
+    union_marker = pals.Marker(name="union_marker")
+    union_drift = pals.Drift(name="union_drift", length=0.1)
+    unionele = pals.UnionEle(name="unionele1", elements=[union_marker, union_drift])
 
     # Wiggler
     wiggler = pals.Wiggler(name="wiggler1", length=2.0)
@@ -246,6 +248,7 @@ def test_comprehensive_lattice():
     octupole_loaded = None
     rbend_loaded = None
     rfcavity_loaded = None
+    unionele_loaded = None
 
     for elem in loaded_lattice.line:
         if elem.name == "sextupole1":
@@ -256,6 +259,8 @@ def test_comprehensive_lattice():
             rbend_loaded = elem
         elif elem.name == "rfcavity1":
             rfcavity_loaded = elem
+        elif elem.name == "unionele1":
+            unionele_loaded = elem
 
     # Test that parameter groups are correctly deserialized
     assert sextupole_loaded.MagneticMultipoleP.Bn2 == 1.0
@@ -269,6 +274,15 @@ def test_comprehensive_lattice():
 
     assert rfcavity_loaded.RFP.frequency == 1e9
     assert rfcavity_loaded.SolenoidP.Ksol == 0.05
+
+    # Test that UnionEle elements are correctly deserialized
+    assert unionele_loaded is not None
+    assert len(unionele_loaded.elements) == 2
+    assert unionele_loaded.elements[0].name == "union_marker"
+    assert unionele_loaded.elements[0].kind == "Marker"
+    assert unionele_loaded.elements[1].name == "union_drift"
+    assert unionele_loaded.elements[1].kind == "Drift"
+    assert unionele_loaded.elements[1].length == 0.1
 
     # Test serialization to JSON
     json_data = json.dumps(lattice.model_dump(), sort_keys=True, indent=2)
@@ -294,6 +308,7 @@ def test_comprehensive_lattice():
     octupole_loaded_json = None
     rbend_loaded_json = None
     rfcavity_loaded_json = None
+    unionele_loaded_json = None
 
     for elem in loaded_lattice_json.line:
         if elem.name == "sextupole1":
@@ -304,6 +319,8 @@ def test_comprehensive_lattice():
             rbend_loaded_json = elem
         elif elem.name == "rfcavity1":
             rfcavity_loaded_json = elem
+        elif elem.name == "unionele1":
+            unionele_loaded_json = elem
 
     # Test that parameter groups are correctly deserialized
     assert sextupole_loaded_json.MagneticMultipoleP.Bn2 == 1.0
@@ -317,6 +334,15 @@ def test_comprehensive_lattice():
 
     assert rfcavity_loaded_json.RFP.frequency == 1e9
     assert rfcavity_loaded_json.SolenoidP.Ksol == 0.05
+
+    # Test that UnionEle elements are correctly deserialized from JSON
+    assert unionele_loaded_json is not None
+    assert len(unionele_loaded_json.elements) == 2
+    assert unionele_loaded_json.elements[0].name == "union_marker"
+    assert unionele_loaded_json.elements[0].kind == "Marker"
+    assert unionele_loaded_json.elements[1].name == "union_drift"
+    assert unionele_loaded_json.elements[1].kind == "Drift"
+    assert unionele_loaded_json.elements[1].length == 0.1
 
     # Clean up temporary files
     os.remove(yaml_file)

@@ -1,7 +1,7 @@
 from typing import Literal
 
-from .ThickElement import ThickElement
-from ._warnings import under_construction
+from .mixin import ThickElement
+from .utils import under_construction
 
 
 @under_construction("ACKicker")

@@ -5,17 +5,21 @@ import pals
 
 
 def test_BaseElement():
+    from pals.kinds.mixin import BaseElement
+
     # Create one base element with custom name
     element_name = "base_element"
-    element = pals.BaseElement(name=element_name)
+    element = BaseElement(name=element_name)
     assert element.name == element_name
 
 
 def test_ThickElement():
+    from pals.kinds.mixin import ThickElement
+
     # Create one thick element with custom name and length
     element_name = "thick_element"
     element_length = 1.0
-    element = pals.ThickElement(
+    element = ThickElement(
         name=element_name,
         length=element_length,
     )
@@ -462,7 +466,17 @@ def test_Foil():
 
 def test_UnionEle():
     """Test UnionEle element"""
+    # Test empty union
     element = pals.UnionEle(name="union1", elements=[])
     assert element.name == "union1"
     assert element.kind == "UnionEle"
     assert element.elements == []
+
+    # Test union with elements
+    marker = pals.Marker(name="m1")
+    drift = pals.Drift(name="d1", length=1.0)
+    element_with_children = pals.UnionEle(name="union2", elements=[marker, drift])
+    assert element_with_children.name == "union2"
+    assert len(element_with_children.elements) == 2
+    assert element_with_children.elements[0].name == "m1"
+    assert element_with_children.elements[1].name == "d1"

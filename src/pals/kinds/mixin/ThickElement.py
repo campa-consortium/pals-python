@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 from annotated_types import Gt
 
-from .BaseElement import BaseElement
+from . import BaseElement
 
 
 class ThickElement(BaseElement):
