@@ -14,10 +14,10 @@ _PARAMETER_PREFIXES = {
 def _validate_order(
     key_num: str, parameter_name: str, prefix: str, expected_format: str
 ) -> None:
-    """Validate that the order number is a valid positive integer (>=0) without leading zeros."""
+    """Validate that the order number is a non-negative integer without leading zeros."""
     error_msg = (
         f"Invalid {parameter_name}: '{prefix}{key_num}'. "
-        f"Parameter must be of the form '{expected_format}', where 'N' is a positive integer (>=0) without leading zeros."
+        f"Parameter must be of the form '{expected_format}', where 'N' is a non-negative integer without leading zeros."
     )
     if not key_num.isdigit() or (key_num.startswith("0") and key_num != "0"):
         raise ValueError(error_msg)
@@ -62,6 +62,6 @@ class MagneticMultipoleParameters(BaseModel):
                 raise ValueError(
                     f"Invalid magnetic multipole parameter: '{key}'. "
                     f"Parameters must be of the form 'tiltN', 'BnN', 'BsN', 'KnN', or 'KsN' "
-                    f"(with optional 'L' suffix for length-integrated), where 'N' is a positive integer (>=0)."
+                    f"(with optional 'L' suffix for length-integrated), where 'N' is a non-negative integer."
                 )
         return values
