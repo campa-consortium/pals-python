@@ -43,9 +43,18 @@ def test_ParameterClasses():
     # assert emp.En1 == 1.0
 
     # Test MagneticMultipoleParameters
-    mmp = MagneticMultipoleParameters(Bn1=1.0, Bs1=0.5)
+    mmp = MagneticMultipoleParameters(tilt1=1.2, Bn1=1.0, Bs1=0.5)
+    assert mmp.tilt1 == 1.2
     assert mmp.Bn1 == 1.0
     assert mmp.Bs1 == 0.5
+
+    mmp2 = MagneticMultipoleParameters(Kn0=1.0, Ks1=0.5)
+    assert mmp2.Kn0 == 1.0
+    assert mmp2.Ks1 == 0.5
+
+    mmp3 = MagneticMultipoleParameters(Bn1L=1.0, Bs1L=0.5)
+    assert mmp3.Bn1L == 1.0
+    assert mmp3.Bs1L == 0.5
 
     #  catch typos
     with pytest.raises(ValidationError):
@@ -54,6 +63,10 @@ def test_ParameterClasses():
         _ = MagneticMultipoleParameters(Bn1=1.0, Bv1=0.5)
     with pytest.raises(ValidationError):
         _ = MagneticMultipoleParameters(Bn01=1.0, Bs01=0.5)
+    with pytest.raises(ValidationError):
+        _ = MagneticMultipoleParameters(Bn1v=1.0, Bs1l=0.5)
+    with pytest.raises(ValidationError):
+        _ = MagneticMultipoleParameters(tilt1L=1.2)
 
     # Test SolenoidParameters
     sol = SolenoidParameters(Ksol=0.1, Bsol=0.2)
