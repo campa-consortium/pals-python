@@ -66,7 +66,7 @@ def test_ParameterClasses():
     with pytest.raises(ValidationError):
         _ = MagneticMultipoleParameters(Bn1v=1.0, Bs1l=0.5)
     with pytest.raises(ValidationError):
-        mmp = MagneticMultipoleParameters(tilt1L=1.2)
+        _ = MagneticMultipoleParameters(tilt1L=1.2)
 
     # Test SolenoidParameters
     sol = SolenoidParameters(Ksol=0.1, Bsol=0.2)
