@@ -6,6 +6,7 @@ from pals import (
     BeamBeamParameters,
     BendParameters,
     BodyShiftParameters,
+    ElectricMultipoleParameters,
     FloorShiftParameters,
     ForkParameters,
     MagneticMultipoleParameters,
@@ -38,9 +39,27 @@ def test_ParameterClasses():
     meta = MetaParameters(alias="test", description="test element")
     assert meta.alias == "test"
 
-    # Test ElectricMultipoleParameters (TODO)
-    # emp = ElectricMultipoleParameters(En1=1.0, Es1=0.5)
-    # assert emp.En1 == 1.0
+    # Test ElectricMultipoleParameters
+    emp = ElectricMultipoleParameters(tilt1=1.2, En1=1.0, Es1=0.5)
+    assert emp.tilt1 == 1.2
+    assert emp.En1 == 1.0
+    assert emp.Es1 == 0.5
+
+    emp2 = ElectricMultipoleParameters(En1L=1.0, Es1L=0.5)
+    assert emp2.En1L == 1.0
+    assert emp2.Es1L == 0.5
+
+    #  catch typos
+    with pytest.raises(ValidationError):
+        _ = ElectricMultipoleParameters(Em1=1.0, Es1=0.5)
+    with pytest.raises(ValidationError):
+        _ = ElectricMultipoleParameters(En1=1.0, Ev1=0.5)
+    with pytest.raises(ValidationError):
+        _ = ElectricMultipoleParameters(En01=1.0, Es01=0.5)
+    with pytest.raises(ValidationError):
+        _ = ElectricMultipoleParameters(En1v=1.0, Es1l=0.5)
+    with pytest.raises(ValidationError):
+        _ = ElectricMultipoleParameters(tilt1L=1.2)
 
     # Test MagneticMultipoleParameters
     mmp = MagneticMultipoleParameters(tilt1=1.2, Bn1=1.0, Bs1=0.5)
