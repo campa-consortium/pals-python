@@ -140,12 +140,14 @@ def test_Sextupole():
         name="sext1",
         length=0.5,
         MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn2=1.0),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En2=1.0),
         ApertureP=pals.ApertureParameters(x_limits=[-0.1, 0.1]),
     )
     assert element.name == "sext1"
     assert element.length == 0.5
     assert element.kind == "Sextupole"
     assert element.MagneticMultipoleP.Bn2 == 1.0
+    assert element.ElectricMultipoleP.En2 == 1.0
     assert element.ApertureP.x_limits == [-0.1, 0.1]
 
 
@@ -154,12 +156,14 @@ def test_Octupole():
     element = pals.Octupole(
         name="oct1",
         length=0.3,
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn3=0.5),
         ElectricMultipoleP=pals.ElectricMultipoleParameters(En3=0.5),
         MetaP=pals.MetaParameters(alias="octupole_test"),
     )
     assert element.name == "oct1"
     assert element.length == 0.3
     assert element.kind == "Octupole"
+    assert element.MagneticMultipoleP.Bn3 == 0.5
     assert element.ElectricMultipoleP.En3 == 0.5
     assert element.MetaP.alias == "octupole_test"
 
@@ -170,12 +174,16 @@ def test_Multipole():
         name="mult1",
         length=0.4,
         MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=2.0, Bn2=1.5),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=2.0, En2=1.5),
         BodyShiftP=pals.BodyShiftParameters(x_offset=0.01),
     )
     assert element.name == "mult1"
     assert element.length == 0.4
     assert element.kind == "Multipole"
     assert element.MagneticMultipoleP.Bn1 == 2.0
+    assert element.MagneticMultipoleP.Bn2 == 1.5
+    assert element.ElectricMultipoleP.En1 == 2.0
+    assert element.ElectricMultipoleP.En2 == 1.5
     assert element.BodyShiftP.x_offset == 0.01
 
 
