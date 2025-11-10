@@ -55,6 +55,7 @@ def test_Quadrupole():
     # Create one drift element with custom name and length
     element_name = "quadrupole_element"
     element_length = 1.0
+    # Magnetic multipole parameters
     element_magnetic_multipole_Bn1 = 1.1
     element_magnetic_multipole_Bn2 = 1.2
     element_magnetic_multipole_Bs1 = 2.1
@@ -69,10 +70,26 @@ def test_Quadrupole():
         Bs2=element_magnetic_multipole_Bs2,
         tilt2=element_magnetic_multipole_tilt2,
     )
+    # Electric multipole parameters
+    element_electric_multipole_En1 = 1.1
+    element_electric_multipole_En2 = 1.2
+    element_electric_multipole_Es1 = 2.1
+    element_electric_multipole_Es2 = 2.2
+    element_electric_multipole_tilt1 = 3.1
+    element_electric_multipole_tilt2 = 3.2
+    element_electric_multipole = pals.ElectricMultipoleParameters(
+        En1=element_electric_multipole_En1,
+        Es1=element_electric_multipole_Es1,
+        tilt1=element_electric_multipole_tilt1,
+        En2=element_electric_multipole_En2,
+        Es2=element_electric_multipole_Es2,
+        tilt2=element_electric_multipole_tilt2,
+    )
     element = pals.Quadrupole(
         name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
+        ElectricMultipoleP=element_electric_multipole,
     )
     assert element.name == element_name
     assert element.length == element_length
@@ -82,6 +99,12 @@ def test_Quadrupole():
     assert element.MagneticMultipoleP.Bn2 == element_magnetic_multipole_Bn2
     assert element.MagneticMultipoleP.Bs2 == element_magnetic_multipole_Bs2
     assert element.MagneticMultipoleP.tilt2 == element_magnetic_multipole_tilt2
+    assert element.ElectricMultipoleP.En1 == element_electric_multipole_En1
+    assert element.ElectricMultipoleP.Es1 == element_electric_multipole_Es1
+    assert element.ElectricMultipoleP.tilt1 == element_electric_multipole_tilt1
+    assert element.ElectricMultipoleP.En2 == element_electric_multipole_En2
+    assert element.ElectricMultipoleP.Es2 == element_electric_multipole_Es2
+    assert element.ElectricMultipoleP.tilt2 == element_electric_multipole_tilt2
     # Serialize the BeamLine object to YAML
     yaml_data = yaml.dump(element.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
@@ -117,12 +140,14 @@ def test_Sextupole():
         name="sext1",
         length=0.5,
         MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn2=1.0),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En2=1.0),
         ApertureP=pals.ApertureParameters(x_limits=[-0.1, 0.1]),
     )
     assert element.name == "sext1"
     assert element.length == 0.5
     assert element.kind == "Sextupole"
     assert element.MagneticMultipoleP.Bn2 == 1.0
+    assert element.ElectricMultipoleP.En2 == 1.0
     assert element.ApertureP.x_limits == [-0.1, 0.1]
 
 
@@ -131,12 +156,14 @@ def test_Octupole():
     element = pals.Octupole(
         name="oct1",
         length=0.3,
+        MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn3=0.5),
         ElectricMultipoleP=pals.ElectricMultipoleParameters(En3=0.5),
         MetaP=pals.MetaParameters(alias="octupole_test"),
     )
     assert element.name == "oct1"
     assert element.length == 0.3
     assert element.kind == "Octupole"
+    assert element.MagneticMultipoleP.Bn3 == 0.5
     assert element.ElectricMultipoleP.En3 == 0.5
     assert element.MetaP.alias == "octupole_test"
 
@@ -147,12 +174,16 @@ def test_Multipole():
         name="mult1",
         length=0.4,
         MagneticMultipoleP=pals.MagneticMultipoleParameters(Bn1=2.0, Bn2=1.5),
+        ElectricMultipoleP=pals.ElectricMultipoleParameters(En1=2.0, En2=1.5),
         BodyShiftP=pals.BodyShiftParameters(x_offset=0.01),
     )
     assert element.name == "mult1"
     assert element.length == 0.4
     assert element.kind == "Multipole"
     assert element.MagneticMultipoleP.Bn1 == 2.0
+    assert element.MagneticMultipoleP.Bn2 == 1.5
+    assert element.ElectricMultipoleP.En1 == 2.0
+    assert element.ElectricMultipoleP.En2 == 1.5
     assert element.BodyShiftP.x_offset == 0.01
 
 
