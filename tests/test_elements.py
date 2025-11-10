@@ -55,6 +55,7 @@ def test_Quadrupole():
     # Create one drift element with custom name and length
     element_name = "quadrupole_element"
     element_length = 1.0
+    # Magnetic multipole parameters
     element_magnetic_multipole_Bn1 = 1.1
     element_magnetic_multipole_Bn2 = 1.2
     element_magnetic_multipole_Bs1 = 2.1
@@ -69,10 +70,26 @@ def test_Quadrupole():
         Bs2=element_magnetic_multipole_Bs2,
         tilt2=element_magnetic_multipole_tilt2,
     )
+    # Electric multipole parameters
+    element_electric_multipole_En1 = 1.1
+    element_electric_multipole_En2 = 1.2
+    element_electric_multipole_Es1 = 2.1
+    element_electric_multipole_Es2 = 2.2
+    element_electric_multipole_tilt1 = 3.1
+    element_electric_multipole_tilt2 = 3.2
+    element_electric_multipole = pals.ElectricMultipoleParameters(
+        En1=element_electric_multipole_En1,
+        Es1=element_electric_multipole_Es1,
+        tilt1=element_electric_multipole_tilt1,
+        En2=element_electric_multipole_En2,
+        Es2=element_electric_multipole_Es2,
+        tilt2=element_electric_multipole_tilt2,
+    )
     element = pals.Quadrupole(
         name=element_name,
         length=element_length,
         MagneticMultipoleP=element_magnetic_multipole,
+        ElectricMultipoleP=element_electric_multipole,
     )
     assert element.name == element_name
     assert element.length == element_length
@@ -82,6 +99,12 @@ def test_Quadrupole():
     assert element.MagneticMultipoleP.Bn2 == element_magnetic_multipole_Bn2
     assert element.MagneticMultipoleP.Bs2 == element_magnetic_multipole_Bs2
     assert element.MagneticMultipoleP.tilt2 == element_magnetic_multipole_tilt2
+    assert element.ElectricMultipoleP.En1 == element_electric_multipole_En1
+    assert element.ElectricMultipoleP.Es1 == element_electric_multipole_Es1
+    assert element.ElectricMultipoleP.tilt1 == element_electric_multipole_tilt1
+    assert element.ElectricMultipoleP.En2 == element_electric_multipole_En2
+    assert element.ElectricMultipoleP.Es2 == element_electric_multipole_Es2
+    assert element.ElectricMultipoleP.tilt2 == element_electric_multipole_tilt2
     # Serialize the BeamLine object to YAML
     yaml_data = yaml.dump(element.model_dump(), default_flow_style=False)
     print(f"\n{yaml_data}")
