@@ -12,7 +12,7 @@ class Quadrupole(ThickElement):
     # Discriminator field
     kind: Literal["Quadrupole"] = "Quadrupole"
 
-    # Octupole-specific parameters
+    # Quadrupole-specific parameters
     MagneticMultipoleP: Optional[MagneticMultipoleParameters] = None
     ElectricMultipoleP: Optional[ElectricMultipoleParameters] = None
 
